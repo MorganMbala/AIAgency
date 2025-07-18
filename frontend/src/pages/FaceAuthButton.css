@@ -1,0 +1,42 @@
+.face-auth-button-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .button-group {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .face-btn {
+    min-width: 220px;      
+    padding: 12px 20px;    
+    font-size: 1.1rem;     
+    font-weight: bold;
+    border-radius: 0;
+    transition: background-color 0.3s, border-color 0.3s;
+  }
+  
+  
+  .btn-primary.face-btn {
+    background-color: #e50914;
+    border-color: #e50914;
+  }
+  
+  .btn-primary.face-btn:hover {
+    background-color: #f40612;
+    border-color: #f40612;
+  }
+  
+  .btn-danger.face-btn {
+    background-color: #e50914;
+    border-color: #e50914;
+  }
+  
+  .btn-danger.face-btn:hover {
+    background-color: #f40612;
+    border-color: #f40612;
+  }
+  

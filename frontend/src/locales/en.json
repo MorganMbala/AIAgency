@@ -1,0 +1,128 @@
+
+{
+    "nav": {
+    "about": "About",
+    "services": "Services",   
+    "contact": "Contact"
+  },
+    "hero": {
+    "clean1": "Trust. Performance.",
+    "clean2": "Your brand deserve the best",
+    "subText": "We create tailored websites, landing pages, portfolios, and SaaS solutions to boost your brand and ensure success.",
+    "cta": "Start your project",
+    "benefit1": "100% Risk-Free",
+    "benefit2": "Try Before You Buy",
+    "benefit3": "Pay Only If Satisfied",
+    "trusted": "Trusted by 5,000+ businesses and creative agencies worldwide from all shapes and sizes."
+  },
+    "contact": {
+    "subText": "Get in touch",
+    "title": "Contact our team",
+    "labels": {
+      "fullName": "What's your full name",
+      "workEmail": "What's your work email",
+      "companyName": "What company do you work for?",
+      "companySize": "How big is your company?",
+      "message": "How can we help you"
+    },
+    "placeholders": {
+      "fullName": "Morgan Freeman",
+      "workEmail": "morgan@company.com",
+      "companyName": "Big Tech company",
+      "message": "I am interested in building a website for my business. I would like to learn more about..."
+    },
+    "button": {
+      "send": "Send message >",
+      "sending": "Sending..."
+    },
+    "alert": {
+      "success": "Thank you. I will get back to you as soon as possible.",
+      "error": "Ah, something went wrong. Please try again."
+    }
+  },
+
+  "experience": {
+    "subText": "Small Simple Steps",
+    "title": "How it Works"
+  },
+
+  "Junior Web Developer": "Junior Web Developer",
+  "TechCorp": "TechCorp",
+  "Built and maintained client-side React features": "Built and maintained client-side React features",
+  "Collaborated with designers to improve UI/UX": "Collaborated with designers to improve UI/UX",
+
+  
+    "Step 1: Consultation and Planning": "Step 1: Consultation and Planning",
+    "Have a meeting with us to discuss your needs and objectives.": "Have a meeting with us to discuss your needs and objectives.",
+    "We'll work together to agree on a detailed plan that aligns with your vision and goals.": "We'll work together to agree on a detailed plan that aligns with your vision and goals.",
+  
+    "Step 2: Match with an Expert": "Step 2: Match with an Expert",
+    "You'll be matched with an expert who specialises in your project type.": "You'll be matched with an expert who specialises in your project type.",
+    "They will guide you through the design process, ensuring your ideas are brought to life.": "They will guide you through the design process, ensuring your ideas are brought to life.",
+  
+    "Step 3: Sit Back and Relax": "Step 3: Sit Back and Relax",
+    "You can relax while we handle all the work.": "You can relax while we handle all the work.",
+    "Our team of professionals will take care of every detail, providing regular updates to keep you informed.": "Our team of professionals will take care of every detail, providing regular updates to keep you informed.",
+  
+    "Step 4: Launch and Celebrate ": "Step 4: Launch and Celebrate ",
+    "Once everything is perfect, we'll launch your site, software, or deliver your branding package.": "Once everything is perfect, we'll launch your site, software, or deliver your branding package.",
+    "Celebrate the successful completion of your project and enjoy the results!": "Celebrate the successful completion of your project and enjoy the results!",
+
+    
+
+  "tech": {
+    "subText": "What we use",
+    "title": "Technologies we work with"
+  },
+
+  "Collaboration and Innovation": "Collaboration and Innovation",
+  "Rigor and Commitment": "Rigor and Commitment",
+  "Fun and Creativity": "Fun and Creativity",
+  "Excellence and Quality": "Excellence and Quality",
+
+  "works": {
+    "subText": "What we do",
+    "title": "Explore our services",
+    "paragraph": "Would you like to enhance your digital ecosystem with a customized solution? From strategic planning to developing and managing digital solutions, our experts are here to guide you on your journey and work with you to achieve your business objectives. We offer customized IT solutions to fill a growing need in your organization or optimize your existing digital ecosystem. There’s no need to look for multiple providers: our web agency offers a complete service that covers all the horizons of custom development."
+  },
+  "footer": {
+  "contact": "Contact Information",
+  "newsletter": "Newsletter",
+  "subscribePrompt": "Subscribe to receive our latest news and professional offers.",
+  "emailPlaceholder": "Your email address",
+  "subscribe": "Subscribe",
+  "invalidEmail": "Invalid email address!",
+  "successMessage": "Thank you! You’ve subscribed to our newsletter 🚀",
+  "sendError": "Error during submission!",
+  "networkError": "Network error!",
+  "readyProject": "Ready for a",
+  "custom": "custom project",
+  "contactUs": "Contact us",
+  "cookie": "Cookie Policy",
+  "privacy": "Privacy Policy",
+  "terms": "Terms & Conditions",
+  "disclaimer": "Disclaimer",
+  "rights": "All rights reserved."
+},
+
+  
+    "Website Development": "Website Development",
+    "At E-WebGo, we specialise in crafting bespoke websites that not only look stunning but also function seamlessly. Our team of expert developers works closely with clients to understand their unique needs and translate them into a digital presence that captivates and engages users. From responsive design to robust e-commerce solutions, we ensure that every site we create is fast, secure, and optimised for performance. Whether you're a start-up needing your first website or an established business seeking a fresh redesign, we turn your vision into a dynamic online experience.": "At E-WebGo, we specialise in crafting bespoke websites that not only look stunning but also function seamlessly. Our team of expert developers works closely with clients to understand their unique needs and translate them into a digital presence that captivates and engages users. From responsive design to robust e-commerce solutions, we ensure that every site we create is fast, secure, and optimised for performance. Whether you're a start-up needing your first website or an established business seeking a fresh redesign, we turn your vision into a dynamic online experience.",
+  
+    "SaaS Development": "SaaS Development",
+    "E-WebGo is at the forefront of developing innovative Software as a Service (SaaS) solutions tailored to meet the specific needs of your business. Our approach combines cutting-edge technology with user-centric design to create software that enhances productivity and drives growth.From initial concept to deployment and maintenance, we handle every aspect of the development process, ensuring a seamless experience for both you and your users. Whether you need a custom CRM, project management tool, or any other SaaS product, we deliver solutions that are scalable, secure, and designed to evolve with your business.": "E-WebGo is at the forefront of developing innovative Software as a Service (SaaS) solutions tailored to meet the specific needs of your business. Our approach combines cutting-edge technology with user-centric design to create software that enhances productivity and drives growth.From initial concept to deployment and maintenance, we handle every aspect of the development process, ensuring a seamless experience for both you and your users. Whether you need a custom CRM, project management tool, or any other SaaS product, we deliver solutions that are scalable, secure, and designed to evolve with your business.",
+  
+    "Full Scale Branding": "Full Scale Branding",
+    "Your brand is your story, and E-WebGo is here to help you tell it powerfully and consistently. Our comprehensive branding services encompass everything from logo design and corporate identity to promotional materials like flyers and letterheads. We delve deep into your company's values and goals to create a cohesive visual identity that resonates with your target audience. With a keen eye for detail and a passion for creativity, our team ensures that every element of your brand speaks the same language, building recognition and trust across all touchpoints.": "Your brand is your story, and E-WebGo is here to help you tell it powerfully and consistently. Our comprehensive branding services encompass everything from logo design and corporate identity to promotional materials like flyers and letterheads. We delve deep into your company's values and goals to create a cohesive visual identity that resonates with your target audience. With a keen eye for detail and a passion for creativity, our team ensures that every element of your brand speaks the same language, building recognition and trust across all touchpoints."
+  
+  
+
+
+
+
+  
+
+
+
+}
+  

@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "../.."
+		},
+		{
+			"path": "../../../ProjectReactMorgan/server"
+		},
+		{
+			"path": "../../../ProjectReactMorgan/python"
+		}
+	],
+	"settings": {}
+}

@@ -1,0 +1,121 @@
+
+{
+    "nav": {
+    "about": "À propos",
+    "services": "Services",    
+    "contact": "Contact"
+  },
+  
+
+  "contact": {
+    "subText": "Contactez-nous",
+    "title": "Contactez notre équipe",
+    "labels": {
+      "fullName": "Quel est votre nom complet",
+      "workEmail": "Quelle est votre adresse e-mail professionnelle",
+      "companyName": "Pour quelle entreprise travaillez-vous ?",
+      "companySize": "Quelle est la taille de votre entreprise ?",
+      "message": "Comment pouvons-nous vous aider"
+    },
+    "placeholders": {
+      "fullName": "Morgan Freeman",
+      "workEmail": "morgan@entreprise.com",
+      "companyName": "Grande entreprise tech",
+      "message": "Je souhaite créer un site web pour mon entreprise. J’aimerais en savoir plus sur…"
+    },
+    "button": {
+      "send": "Envoyer le message >",
+      "sending": "Envoi en cours…"
+    },
+    "alert": {
+      "success": "Merci. Je vous répondrai dès que possible.",
+      "error": "Oups, quelque chose s’est mal passé. Veuillez réessayer."
+    }
+  },
+
+  "experience": {
+    "subText": "Petites étapes simples",
+    "title": "Comment ça fonctionne"
+  },
+
+  "Junior Web Developer": "Développeur Web Junior",
+  "TechCorp": "TechCorp",
+  "Built and maintained client-side React features": "Création et maintenance des fonctionnalités React côté client",
+  "Collaborated with designers to improve UI/UX": "Collaboration avec les designers pour améliorer l’UI/UX",
+
+  "Step 1: Consultation and Planning": "Étape 1 : Consultation et planification",
+  "Have a meeting with us to discuss your needs and objectives.": "Rencontrez notre équipe pour discuter de vos besoins et objectifs.",
+  "We'll work together to agree on a detailed plan that aligns with your vision and goals.": "Nous élaborerons ensemble un plan détaillé correspondant à votre vision et vos objectifs.",
+
+  "Step 2: Match with an Expert": "Étape 2 : Mise en relation avec un expert",
+  "You'll be matched with an expert who specialises in your project type.": "Vous serez mis en relation avec un expert spécialisé dans votre type de projet.",
+  "They will guide you through the design process, ensuring your ideas are brought to life.": "Il vous guidera tout au long du processus de conception afin de concrétiser vos idées.",
+
+  "Step 3: Sit Back and Relax": "Étape 3 : Installez-vous et détendez-vous",
+  "You can relax while we handle all the work.": "Vous pouvez vous détendre pendant que nous nous chargeons de tout le travail.",
+  "Our team of professionals will take care of every detail, providing regular updates to keep you informed.": "Notre équipe de professionnels s'occupera de chaque détail et vous tiendra régulièrement informé.",
+
+  "Step 4: Launch and Celebrate ": "Étape 4 : Lancement et célébration",
+  "Once everything is perfect, we'll launch your site, software, or deliver your branding package.": "Une fois tout finalisé, nous lancerons votre site, votre logiciel ou livrerons votre identité visuelle.",
+  "Celebrate the successful completion of your project and enjoy the results!": "Célébrez la réussite de votre projet et profitez des résultats !",
+
+  "hero": {
+    "clean1": "Confiance. Performance.",
+    "clean2": "Votre marque merite le meilleur",
+    "subText": "Nous créons des sites web sur mesure, des pages d’atterrissage, des portfolios et des solutions SaaS pour valoriser votre marque et garantir son succès.",
+    "cta": "Commencez votre projet",
+    "benefit1": "100% sans risque",
+    "benefit2": "Essayez avant d’acheter",
+    "benefit3": "Paiement uniquement si satisfait",
+    "trusted": "Approuvé par plus de 5 000 entreprises et agences créatives à travers le monde."
+  },
+
+  "tech": {
+    "subText": "Ce que nous utilisons",
+    "title": "Technologies avec lesquelles nous travaillons"
+  },
+  "Collaboration and Innovation": "Collaboration et innovation",
+  "Rigor and Commitment": "Rigueur et engagement",
+  "Fun and Creativity": "Plaisir et créativité",
+  "Excellence and Quality": "Excellence et qualité",
+
+  "works": {
+    "subText": "Ce que nous faisons",
+    "title": "Découvrez nos services",
+    "paragraph": "Souhaitez-vous renforcer votre écosystème numérique grâce à une solution sur mesure ? De la planification stratégique au développement et à la gestion de solutions digitales, nos experts vous accompagnent pour atteindre vos objectifs d’affaires. Nous proposons des solutions informatiques personnalisées pour répondre à vos besoins croissants ou optimiser votre écosystème numérique existant. Inutile de multiplier les prestataires : notre agence web offre un service complet couvrant tous les horizons du développement sur mesure."
+  },
+  "footer": {
+  "contact": "Coordonnées",
+  "newsletter": "Newsletter",
+  "subscribePrompt": "Abonne-toi pour recevoir nos dernières actus et offres pro.",
+  "emailPlaceholder": "Votre adresse email",
+  "subscribe": "S’abonner",
+  "invalidEmail": "Adresse email invalide !",
+  "successMessage": "Merci ! Tu es abonné(e) à notre newsletter 🚀",
+  "sendError": "Erreur lors de l’envoi !",
+  "networkError": "Erreur réseau !",
+  "readyProject": "Prêt pour un projet",
+  "custom": "sur-mesure",
+  "contactUs": "Contactez-nous",
+  "cookie": "Cookie Policy",
+  "privacy": "Privacy Policy",
+  "terms": "Terms & Conditions",
+  "disclaimer": "Disclaimer",
+  "rights": "Tous droits réservés."
+},
+
+  
+    "Website Development": "Développement de sites web",
+    "At E-WebGo, we specialise in crafting bespoke websites that not only look stunning but also function seamlessly. Our team of expert developers works closely with clients to understand their unique needs and translate them into a digital presence that captivates and engages users. From responsive design to robust e-commerce solutions, we ensure that every site we create is fast, secure, and optimised for performance. Whether you're a start-up needing your first website or an established business seeking a fresh redesign, we turn your vision into a dynamic online experience.": "Chez E-WebGo, nous créons des sites sur mesure qui allient esthétique et performance. Notre équipe d’experts collabore étroitement avec vous pour comprendre vos besoins et les traduire en une présence numérique captivante. De la conception responsive aux solutions e-commerce robustes, chaque site que nous réalisons est rapide, sécurisé et optimisé. Que vous soyez une start-up en quête de votre premier site ou une entreprise établie désirant un nouveau design, nous transformons votre vision en une expérience en ligne dynamique.",
+  
+    "SaaS Development": "Développement SaaS",
+    "E-WebGo is at the forefront of developing innovative Software as a Service (SaaS) solutions tailored to meet the specific needs of your business. Our approach combines cutting-edge technology with user-centric design to create software that enhances productivity and drives growth.From initial concept to deployment and maintenance, we handle every aspect of the development process, ensuring a seamless experience for both you and your users. Whether you need a custom CRM, project management tool, or any other SaaS product, we deliver solutions that are scalable, secure, and designed to evolve with your business.": "E-WebGo est à la pointe du développement de solutions SaaS innovantes, adaptées aux besoins spécifiques de votre entreprise. Nous allions technologies de pointe et design centré utilisateur pour créer des logiciels qui stimulent la productivité et la croissance. Du concept initial au déploiement puis à la maintenance, nous prenons en charge chaque étape afin de garantir une expérience fluide pour vous et vos utilisateurs. CRM sur mesure, outil de gestion de projet ou tout autre produit SaaS : nous livrons des solutions évolutives, sécurisées et prêtes à grandir avec votre entreprise.",
+  
+    "Full Scale Branding": "Image de marque complète",
+    "Your brand is your story, and E-WebGo is here to help you tell it powerfully and consistently. Our comprehensive branding services encompass everything from logo design and corporate identity to promotional materials like flyers and letterheads. We delve deep into your company's values and goals to create a cohesive visual identity that resonates with your target audience. With a keen eye for detail and a passion for creativity, our team ensures that every element of your brand speaks the same language, building recognition and trust across all touchpoints.": "Votre marque raconte votre histoire, et E-WebGo vous aide à la raconter avec force et cohérence. Nos services de branding couvrent tout : création de logo, identité visuelle, supports promotionnels tels que flyers et papier à en-tête. Nous explorons en profondeur les valeurs et objectifs de votre entreprise pour façonner une identité visuelle cohérente qui résonne auprès de votre public cible. Grâce à notre sens du détail et à notre créativité, chaque élément de votre marque parle d’une seule voix, renforçant reconnaissance et confiance sur tous les points de contact."
+  
+  
+
+
+  }
+  

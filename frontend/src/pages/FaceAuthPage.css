@@ -1,0 +1,134 @@
+
+
+.face-auth-page {
+    background-color: #141414; 
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+  }
+  
+
+  .face-auth-container {
+    background-color: #1a1a1a;
+    padding: 20px;
+    border-radius: 5px;
+    width: 500px;
+    position: relative;
+  }
+  
+
+  .face-auth-title {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #e50914;
+    font-weight: bold;
+  }
+  
+  
+  .face-auth-video-container {
+    height: 300px;
+    background-color: #f0f0f0;
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+    margin-bottom: 20px;
+  }
+  
+ 
+  .face-auth-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scaleX(-1);
+  }
+  
+  .face-auth-video-placeholder {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
+  
+  .face-auth-captured-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    font-size: 1.2rem;
+  }
+  
+
+  .face-auth-controls {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  
+  .btn-white-red {
+    background-color: white;
+    border: 2px solid #e50914;
+    color: #e50914;
+    font-weight: bold;
+    border-radius: 0;
+    padding: 10px 15px;
+    font-size: 1rem;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  .btn-white-red:hover {
+    background-color: #e50914;
+    color: white;
+  }
+  
+
+  .face-auth-form .form-control {
+    font-size: 1.1rem;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+  
+  .face-auth-form .form-control:hover {
+    border-color: #e50914;
+    box-shadow: 0 0 5px rgba(229, 9, 20, 0.5);
+  }
+  
+.face-auth-preview {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background-color: white;
+    padding: 5px;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    width: 100px; 
+   
+  }
+  
+  .face-auth-preview img {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+  }
+  
+  
+.face-auth-btn {
+    min-width: 225px;        
+    padding: 12px 20px;     
+    font-size: 1.1rem;       
+    font-weight: bold;
+    border-radius: 0;        
+    transition: background-color 0.3s, border-color 0.3s;
+  }
+  
+  
