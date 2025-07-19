@@ -23,6 +23,7 @@ const register = async (req, res) => {
     const user = await User.create({ username, email, password: hashedPassword, role, code });
     res.status(201).json({ message: 'Compte créé avec succès', user: { id: user.id, username: user.username, email: user.email, role: user.role, code: user.code } });
   } catch (err) {
+    console.error('Register error:', err);
     res.status(500).json({ message: 'Erreur serveur', error: err.message });
   }
 };
@@ -37,6 +38,7 @@ const login = async (req, res) => {
     const token = jwt.sign({ id: user.id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '1d' });
     res.json({ token, user: { id: user.id, username: user.username, email: user.email, role: user.role } });
   } catch (err) {
+    console.error('Login error:', err);
     res.status(500).json({ message: 'Erreur serveur', error: err.message });
   }
 };
@@ -62,6 +64,7 @@ const changeRole = async (req, res) => {
     await user.save();
     res.json({ message: 'Rôle mis à jour', user: { id: user.id, username: user.username, email: user.email, role: user.role, code: user.code } });
   } catch (err) {
+    console.error('ChangeRole error:', err);
     res.status(500).json({ message: 'Erreur serveur', error: err.message });
   }
 };
@@ -86,6 +89,7 @@ const googleAuth = async (req, res) => {
     const token = jwt.sign({ id: user.id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '1d' });
     res.status(200).json({ token, user: { id: user.id, username: user.username, email: user.email, role: user.role, code: user.code } });
   } catch (error) {
+    console.error('GoogleAuth error:', error);
     res.status(500).json({ error: "Erreur lors de la connexion Google." });
   }
 };

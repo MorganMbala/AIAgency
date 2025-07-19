@@ -1,13 +1,19 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/logo.svg";
 
 const Navbar = () => {
   const [servicesOpen, setServicesOpen] = useState(false);
   const [activeServiceCategory, setActiveServiceCategory] = useState('AI Services');
+  const navigate = useNavigate();
 
-  // Simuler un utilisateur connecté (remplacez par votre logique réelle)
-  const user = { role: 'admin' }; // ou null ou { role: 'user' }
+  // Détection de l'utilisateur connecté via localStorage
+  const user = JSON.parse(localStorage.getItem("user"));
+
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    navigate("/login");
+  };
 
   return (
     <>
@@ -16,9 +22,13 @@ const Navbar = () => {
         <Link to="/contact">
           <button className="px-5 py-2 border border-black text-black font-semibold rounded-full bg-white hover:bg-black hover:text-white transition text-base">Contact Us</button>
         </Link>
-        <Link to="/login">
-          <button className="px-5 py-2 border border-black text-black font-semibold rounded-full bg-white hover:bg-black hover:text-white transition text-base">Se connecter</button>
-        </Link>
+        {user ? (
+          <button onClick={handleLogout} className="px-5 py-2 border border-black text-black font-semibold rounded-full bg-white hover:bg-black hover:text-white transition text-base">Se déconnecter</button>
+        ) : (
+          <Link to="/login">
+            <button className="px-5 py-2 border border-black text-black font-semibold rounded-full bg-white hover:bg-black hover:text-white transition text-base">Se connecter</button>
+          </Link>
+        )}
       </div>
       <nav className="w-full bg-white border-b border-gray-200 fixed top-0 left-0 z-40 font-sans">
         <div className="max-w-[1600px] mx-auto px-8 sm:px-16 flex items-center justify-start h-20">
@@ -347,7 +357,7 @@ const Navbar = () => {
               </div>
             </div>
             {/* Section Dashboard visible uniquement pour l'admin */}
-            {user && user.role === 'admin' && (
+            {user && user.user && user.user.role === 'admin' && (
               <Link to="/dashboard" className="text-black font-semibold text-lg tracking-wide px-2 hover:text-blue-700 transition no-underline" style={{ textDecoration: 'none' }}>
                 DASHBOARD
               </Link>

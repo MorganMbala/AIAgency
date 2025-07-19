@@ -6,6 +6,7 @@ import { jwtDecode } from 'jwt-decode';
 import "bootstrap/dist/css/bootstrap.min.css";
 import Navbar from "../components/Navbar";
 import "./Signup.css";
+import logo from "../assets/logo.svg";
 
 const API_URL = "http://localhost:4000/api/auth";
 
@@ -58,7 +59,7 @@ function Signup() {
     <div className="signup-zara-bg" style={{ minHeight: '100vh', background: '#fff' }}>
       <Navbar />
       <div className="d-flex flex-column align-items-center justify-content-center" style={{ minHeight: '100vh' }}>
-        <img src="https://static.zara.net/photos///contents/mkt/spots/aw23-north-woman-logo//logo-x2-black.png?ts=1692609608862" alt="ZARA" style={{ width: 220, margin: '40px 0 20px 0' }} />
+        <img src={logo} alt="E-WebGo" style={{ width: 120, margin: '60px 0 20px 0' }} />
         <div style={{ width: 400, maxWidth: '90vw', background: '#fff', padding: 32, borderRadius: 0, boxShadow: '0 2px 8px rgba(0,0,0,0.04)' }}>
           <h3 style={{ fontWeight: 400, letterSpacing: 1, marginBottom: 32 }}>SIGN UP</h3>
           {errorMessage && (
