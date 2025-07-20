@@ -2,11 +2,16 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/logo.svg";
 import axios from "axios";
+import { AiOutlineShoppingCart } from 'react-icons/ai';
+import Cart from './Cart';
+
 
 const Navbar = () => {
   const [servicesOpen, setServicesOpen] = useState(false);
   const [activeServiceCategory, setActiveServiceCategory] = useState('AI Services');
   const [user, setUser] = useState(null);
+  const [showCart, setShowCart] = useState(false);
+  const [cartCount, setCartCount] = useState(0);
   const navigate = useNavigate();
 
   // Détection dynamique de l'utilisateur connecté via /api/auth/me
@@ -15,6 +20,21 @@ const Navbar = () => {
       .then(res => setUser(res.data.user))
       .catch(() => setUser(null));
   }, []);
+
+  // Fetch cart count on mount and when showCart changes
+  useEffect(() => {
+    if (user) {
+      axios.get('http://localhost:5003/api/cart', { withCredentials: true })
+        .then(res => {
+          const items = res.data.cartItems || [];
+          const count = items.reduce((sum, item) => sum + item.quantity, 0);
+          setCartCount(count);
+        })
+        .catch(() => setCartCount(0));
+    } else {
+      setCartCount(0);
+    }
+  }, [user, showCart]);
 
   const handleLogout = async () => {
     try {
@@ -356,8 +376,6 @@ const Navbar = () => {
                 <Link to="/industries/healthcare" className="block px-6 py-3 hover:bg-gray-100 text-black no-underline" style={{ textDecoration: 'none' }}>Healthcare</Link>
               </div>
             </div>
-            <Link to="/insights" className="text-black font-semibold text-lg tracking-wide px-2 hover:text-black transition no-underline" style={{ textDecoration: 'none' }}>CASES</Link>
-            <Link to="/insights" className="text-black font-semibold text-lg tracking-wide px-2 hover:text-black transition no-underline" style={{ textDecoration: 'none' }}>INSIGHTS</Link>
             {/* ABOUT Dropdown (clic) */}
             <div className="relative group">
               <Link to="" className="text-black font-semibold text-lg tracking-wide px-2 hover:text-black transition no-underline" style={{ textDecoration: 'none' }}>
@@ -374,9 +392,21 @@ const Navbar = () => {
                 DASHBOARD
               </Link>
             )}
+            {/* Ajout icône panier à droite du dashboard */}
+            <button
+              className="relative text-3xl text-black hover:text-cyan-500 transition focus:outline-none ml-4"
+              onClick={() => setShowCart(true)}
+              aria-label="Voir le panier"
+            >
+              <AiOutlineShoppingCart />
+              <span className="absolute -top-2 -right-2 bg-cyan-400 text-white rounded-full text-xs w-5 h-5 flex items-center justify-center font-bold">
+                {cartCount}
+              </span>
+            </button>
           </div>
         </div>
       </nav>
+      {showCart && <Cart onClose={() => setShowCart(false)} />}
     </>
   );
 };

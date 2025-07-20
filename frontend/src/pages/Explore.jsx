@@ -27,9 +27,13 @@ const Explore = () => {
     return acc;
   }, {});
 
-  const handleAddToCart = (product) => {
-    // À adapter selon ta logique panier
-    alert(`Produit ajouté au panier : ${product.name}`);
+  const handleAddToCart = async (product) => {
+    try {
+      await axios.post('http://localhost:5003/api/cart/add', { productId: product._id || product.id, quantity: 1 }, { withCredentials: true });
+      // Optionnel : afficher une notification/toast
+    } catch (err) {
+      alert('Erreur lors de l\'ajout au panier');
+    }
   };
 
   return (

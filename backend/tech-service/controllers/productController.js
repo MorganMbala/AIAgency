@@ -57,3 +57,17 @@ exports.deleteProduct = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
+
+// Bulk fetch products by IDs
+exports.getProductsBulk = async (req, res) => {
+  try {
+    const ids = req.body.ids || [];
+    if (!Array.isArray(ids) || ids.length === 0) {
+      return res.status(400).json({ error: 'Aucune ID fournie' });
+    }
+    const products = await Product.find({ _id: { $in: ids } });
+    res.json(products);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};

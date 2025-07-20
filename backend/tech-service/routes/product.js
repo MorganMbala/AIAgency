@@ -8,5 +8,7 @@ router.get('/', productController.getProducts); // Liste des produits
 router.get('/:id', productController.getProductById); // Détail d'un produit
 router.put('/:id', productController.updateProduct); // Modifier un produit
 router.delete('/:id', productController.deleteProduct); // Supprimer un produit
+// Bulk fetch products by IDs
+router.post('/bulk', productController.getProductsBulk);
 
 module.exports = router;
