@@ -89,7 +89,7 @@ const Cart = ({ onClose }) => {
 
   return (
     <div className="bg-half-transparent w-full fixed nav-item top-0 right-0 z-50">
-      <div className="float-right h-screen duration-1000 ease-in-out bg-white md:w-96 w-full max-w-md p-8 shadow-2xl overflow-y-auto relative">
+      <div className="float-right h-screen duration-1000 ease-in-out bg-white md:w-[32rem] w-full max-w-2xl p-8 shadow-2xl overflow-y-auto relative">
         {/* Bouton pour fermer le panier (fermeture modale ou retour Explore) */}
         <button
           className="absolute top-4 right-4 text-gray-400 hover:text-red-500 text-2xl z-10"
