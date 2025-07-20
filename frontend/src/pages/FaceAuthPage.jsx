@@ -88,9 +88,9 @@ const FaceAuthPage = ({ authMode = 'login' }) => {
       const response = await axios.post(
         "http://localhost:3001/face/verify",
         { faceImage: imageData },
-        { headers: { 'Content-Type': 'application/json' }, timeout: 10000 }
+        { headers: { 'Content-Type': 'application/json' }, timeout: 10000, withCredentials: true }
       );
-      localStorage.setItem('user', JSON.stringify(response.data.user));
+      // Suppression du stockage localStorage, la session est gérée par cookie
       setSuccessMessage("Visage reconnu. Redirection vers la page des vidéos...");
       setTimeout(() => {
         navigate('/videos'); 

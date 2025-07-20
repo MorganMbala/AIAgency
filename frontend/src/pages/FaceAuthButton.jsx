@@ -48,7 +48,8 @@ const FaceAuthButton = forwardRef(({ mode, onSuccess, onError }, ref) => {
       const imageData = canvas.toDataURL('image/jpeg').split(',')[1];
       const response = await axios.post(
         mode === 'register' ? '/api/register-face' : '/api/login-face',
-        { image: imageData }
+        { image: imageData },
+        { withCredentials: true }
       );
       onSuccess(response.data);
     } catch (err) {

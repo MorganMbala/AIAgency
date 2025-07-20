@@ -29,12 +29,12 @@ function Login() {
       const result = await axios.post(`${API_URL}/login`, {
         email,
         password,
-      });
-      if (result.data.token) {
-        localStorage.setItem("user", JSON.stringify(result.data));
+      }, { withCredentials: true });
+      if (result.data.user) {
         navigate("/");
       } else {
-        throw new Error("Identifiants invalides. Veuillez réessayer.");
+        setErrorMessage("Identifiants invalides. Veuillez vérifier votre email ou mot de passe.");
+        return;
       }
     } catch (err) {
       if (
@@ -43,7 +43,7 @@ function Login() {
       ) {
         setErrorMessage(err.message);
       } else if (err.response) {
-        setErrorMessage(err.response.data.error || "Erreur serveur.");
+        setErrorMessage(err.response.data.message || err.response.data.error || "Erreur serveur.");
       } else if (err.request) {
         setErrorMessage("Impossible de contacter le serveur.");
       } else {
@@ -57,9 +57,11 @@ function Login() {
   const handleGoogleLoginSuccess = async (credentialResponse) => {
     try {
       // Appel de la route Google du microservice
-      const response = await axios.post(`${API_URL}/google`, { credential: credentialResponse.credential });
-      localStorage.setItem("user", JSON.stringify(response.data));
-      navigate("/");
+      const response = await axios.post(`${API_URL}/google`, { credential: credentialResponse.credential }, { withCredentials: true });
+      if (response.data.user) {
+        // Redirection après login Google
+        navigate("/");
+      }
     } catch (err) {
       setErrorMessage("Échec de la connexion avec Google.");
     }
@@ -127,6 +129,12 @@ function Login() {
           <div className="mt-4" style={{ color: '#222', fontSize: 15 }}>
             <Link to="/help" style={{ color: '#222', textDecoration: 'underline' }}>HELP</Link>
           </div>
+          {/* Affichage du message d'erreur général ici */}
+          {errorMessage && (
+            <div style={{ color: '#e50914', fontSize: 15, marginTop: 8, textAlign: 'center' }}>
+              <i className="bi bi-exclamation-circle me-1"></i> {errorMessage}
+            </div>
+          )}
         </div>
       </div>
     </div>

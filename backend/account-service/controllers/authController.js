@@ -36,7 +36,14 @@ const login = async (req, res) => {
     const valid = await bcrypt.compare(password, user.password);
     if (!valid) return res.status(400).json({ message: 'Identifiants invalides.' });
     const token = jwt.sign({ id: user.id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '1d' });
-    res.json({ token, user: { id: user.id, username: user.username, email: user.email, role: user.role } });
+    res
+      .cookie('token', token, {
+        httpOnly: true,
+        secure: false, // mettre true en production (HTTPS)
+        sameSite: 'Lax', // 'None' si cross-domain/port en HTTPS
+        maxAge: 24 * 60 * 60 * 1000
+      })
+      .json({ user: { id: user.id, username: user.username, email: user.email, role: user.role } });
   } catch (err) {
     console.error('Login error:', err);
     res.status(500).json({ message: 'Erreur serveur', error: err.message });
@@ -87,11 +94,50 @@ const googleAuth = async (req, res) => {
       });
     }
     const token = jwt.sign({ id: user.id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '1d' });
-    res.status(200).json({ token, user: { id: user.id, username: user.username, email: user.email, role: user.role, code: user.code } });
+    res
+      .cookie('token', token, {
+        httpOnly: true,
+        secure: false, // mettre true en production (HTTPS)
+        sameSite: 'Lax', // 'None' si cross-domain/port en HTTPS
+        maxAge: 24 * 60 * 60 * 1000
+      })
+      .status(200)
+      .json({ user: { id: user.id, username: user.username, email: user.email, role: user.role, code: user.code } });
   } catch (error) {
     console.error('GoogleAuth error:', error);
     res.status(500).json({ error: "Erreur lors de la connexion Google." });
   }
 };
 
-module.exports = { register, login, changeRole, googleAuth };
+// GET /api/auth/me - retourne l'utilisateur connecté
+const me = async (req, res) => {
+  try {
+    const token = req.cookies.token || (req.headers['authorization'] && req.headers['authorization'].split(' ')[1]);
+    if (!token) return res.status(401).json({ message: 'Non authentifié' });
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const user = await User.findByPk(decoded.id);
+    if (!user) return res.status(404).json({ message: 'Utilisateur non trouvé' });
+    res.json({ user: { id: user.id, username: user.username, email: user.email, role: user.role } });
+  } catch (err) {
+    res.status(401).json({ message: 'Token invalide', error: err.message });
+  }
+};
+
+// POST /api/auth/logout - déconnexion (suppression du cookie)
+const logout = (req, res) => {
+  res.clearCookie('token', {
+    httpOnly: true,
+    secure: false, // mettre true en production
+    sameSite: 'Lax',
+  });
+  res.json({ message: 'Déconnecté' });
+};
+
+module.exports = {
+  register,
+  login,
+  changeRole,
+  googleAuth,
+  me,
+  logout,
+};

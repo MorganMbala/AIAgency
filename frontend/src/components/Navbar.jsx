@@ -1,18 +1,30 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/logo.svg";
+import axios from "axios";
 
 const Navbar = () => {
   const [servicesOpen, setServicesOpen] = useState(false);
   const [activeServiceCategory, setActiveServiceCategory] = useState('AI Services');
+  const [user, setUser] = useState(null);
   const navigate = useNavigate();
 
-  // Détection de l'utilisateur connecté via localStorage
-  const user = JSON.parse(localStorage.getItem("user"));
+  // Détection dynamique de l'utilisateur connecté via /api/auth/me
+  useEffect(() => {
+    axios.get("http://localhost:4000/api/auth/me", { withCredentials: true })
+      .then(res => setUser(res.data.user))
+      .catch(() => setUser(null));
+  }, []);
 
-  const handleLogout = () => {
-    localStorage.removeItem("user");
-    navigate("/login");
+  const handleLogout = async () => {
+    try {
+      await axios.post("http://localhost:4000/api/auth/logout", {}, { withCredentials: true });
+      setUser(null);
+      navigate("/login");
+    } catch (err) {
+      setUser(null);
+      navigate("/login");
+    }
   };
 
   return (
@@ -357,7 +369,7 @@ const Navbar = () => {
               </div>
             </div>
             {/* Section Dashboard visible uniquement pour l'admin */}
-            {user && user.user && user.user.role === 'admin' && (
+            {user && user.role === 'admin' && (
               <Link to="/dashboard" className="text-black font-semibold text-lg tracking-wide px-2 hover:text-blue-700 transition no-underline" style={{ textDecoration: 'none' }}>
                 DASHBOARD
               </Link>

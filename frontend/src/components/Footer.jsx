@@ -26,6 +26,7 @@ const Footer = () => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({ email }),
+          credentials: 'include', // Ajouté pour cohérence avec la politique d'auth
         }
       );
 

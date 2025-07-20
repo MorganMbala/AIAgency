@@ -6,6 +6,14 @@ body{
     font-family: "Open Sans", sans-serif;
 }
 
+/* Style en-tête Syncfusion Grid : gras et plus grand */
+.e-grid .e-headercell {
+  font-weight: bold !important;
+  font-size: 1.1rem !important;
+}
+
+/* Suppression des styles personnalisés pour les grilles employés, clients et produits */
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

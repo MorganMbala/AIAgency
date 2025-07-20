@@ -32,7 +32,7 @@ function Signup() {
         username: name,
         email,
         password,
-      });
+      }, { withCredentials: true });
       navigate("/login");
     } catch (err) {
       if (err.response?.status === 409) {
@@ -47,8 +47,8 @@ function Signup() {
   const handleGoogleSuccess = async (credentialResponse) => {
     try {
       // Appel de la route Google du microservice
-      const res = await axios.post(`${API_URL}/google`, { credential: credentialResponse.credential });
-      localStorage.setItem("user", JSON.stringify(res.data));
+      const res = await axios.post(`${API_URL}/google`, { credential: credentialResponse.credential }, { withCredentials: true });
+      // Suppression du stockage localStorage, la session est gérée par cookie
       navigate("/");
     } catch (err) {
       setErrorMessage("Erreur d'authentification Google.");

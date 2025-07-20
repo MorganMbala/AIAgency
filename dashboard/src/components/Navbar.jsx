@@ -8,6 +8,7 @@ import { TooltipComponent } from '@syncfusion/ej2-react-popups';
 import avatar from '../data/avatar.jpg';
 import { Cart, Chat, Notification, UserProfile } from '.';
 import { useStateContext } from '../contexts/ContextProvider';
+import { isAdmin } from '../utils/auth';
 
 const NavButton = ({ title, customFunc, icon, color, dotColor }) => (
   <TooltipComponent content={title} position="BottomCenter">
@@ -54,9 +55,18 @@ const Navbar = () => {
       <div className="flex items-center gap-3">
         <img src="/logo.svg" alt="E-WebGo Logo" className="h-10 w-10" />
         <span className="font-extrabold text-2xl tracking-tight text-slate-900 dark:text-white">E-WebGo</span>
-        <NavButton title="Menu" customFunc={handleActiveMenu} color={currentColor} icon={<AiOutlineMenu />} />
+        {isAdmin() && (
+          <span className="ml-2 px-2 py-1 bg-green-600 text-white text-xs rounded">Admin</span>
+        )}
       </div>
       <div className="flex">
+        {/* Affichage du bouton Dashboard uniquement pour l'admin */}
+        {isAdmin() && (
+          <a href="/" className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 mr-2">
+            Dashboard
+          </a>
+        )}
+        <NavButton title="Menu" customFunc={handleActiveMenu} color={currentColor} icon={<AiOutlineMenu />} />
         <NavButton title="Cart" customFunc={() => handleClick('cart')} color={currentColor} icon={<FiShoppingCart />} />
         <NavButton title="Chat" dotColor="#03C9D7" customFunc={() => handleClick('chat')} color={currentColor} icon={<BsChatLeft />} />
         <NavButton title="Notification" dotColor="rgb(254, 201, 15)" customFunc={() => handleClick('notification')} color={currentColor} icon={<RiNotification3Line />} />
