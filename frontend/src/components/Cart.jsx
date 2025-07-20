@@ -58,7 +58,10 @@ const Cart = ({ onClose }) => {
     if (newQty < 1) return;
     try {
       await axios.post('http://localhost:5003/api/cart/add', { productId, quantity: delta }, { withCredentials: true });
-      fetchCart();
+      // Mise à jour locale sans rechargement complet
+      setCartItems(prev => prev.map(i =>
+        i.productId === productId ? { ...i, quantity: newQty } : i
+      ));
       refreshCart(); // Synchronise le compteur global
     } catch (err) {
       setError('Erreur lors de la modification de la quantité');
@@ -68,7 +71,8 @@ const Cart = ({ onClose }) => {
   const handleRemove = async (productId) => {
     try {
       await axios.post('http://localhost:5003/api/cart/remove', { productId }, { withCredentials: true });
-      fetchCart();
+      // Mise à jour locale sans rechargement complet
+      setCartItems(prev => prev.filter(i => i.productId !== productId));
       refreshCart(); // Synchronise le compteur global
     } catch (err) {
       setError('Erreur lors de la suppression');
