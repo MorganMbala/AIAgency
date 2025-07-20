@@ -4,6 +4,7 @@ import logo from "../assets/logo.svg";
 import axios from "axios";
 import { AiOutlineShoppingCart } from 'react-icons/ai';
 import Cart from './Cart';
+import { useCart } from '../contexts/CartContext.jsx';
 
 
 const Navbar = () => {
@@ -11,7 +12,7 @@ const Navbar = () => {
   const [activeServiceCategory, setActiveServiceCategory] = useState('AI Services');
   const [user, setUser] = useState(null);
   const [showCart, setShowCart] = useState(false);
-  const [cartCount, setCartCount] = useState(0);
+  const { cartCount, refreshCart } = useCart();
   const navigate = useNavigate();
 
   // Détection dynamique de l'utilisateur connecté via /api/auth/me
@@ -21,20 +22,10 @@ const Navbar = () => {
       .catch(() => setUser(null));
   }, []);
 
-  // Fetch cart count on mount and when showCart changes
+  // Rafraîchir le compteur panier à chaque ouverture/fermeture du panier
   useEffect(() => {
-    if (user) {
-      axios.get('http://localhost:5003/api/cart', { withCredentials: true })
-        .then(res => {
-          const items = res.data.cartItems || [];
-          const count = items.reduce((sum, item) => sum + item.quantity, 0);
-          setCartCount(count);
-        })
-        .catch(() => setCartCount(0));
-    } else {
-      setCartCount(0);
-    }
-  }, [user, showCart]);
+    if (user) refreshCart();
+  }, [user, showCart, refreshCart]);
 
   const handleLogout = async () => {
     try {

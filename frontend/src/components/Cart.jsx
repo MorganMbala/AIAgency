@@ -2,8 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { AiOutlinePlus, AiOutlineMinus } from 'react-icons/ai';
 import { MdOutlineCancel } from 'react-icons/md';
 import axios from 'axios';
+import { useCart } from '../contexts/CartContext.jsx';
 
 const Cart = ({ onClose }) => {
+  const { refreshCart } = useCart();
   const [cartItems, setCartItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -42,6 +44,7 @@ const Cart = ({ onClose }) => {
       }
       setCartItems(items);
       setError(null);
+      refreshCart(); // Synchronise le compteur global
     } catch (err) {
       setError('Erreur lors du chargement du panier');
     }
@@ -56,6 +59,7 @@ const Cart = ({ onClose }) => {
     try {
       await axios.post('http://localhost:5003/api/cart/add', { productId, quantity: delta }, { withCredentials: true });
       fetchCart();
+      refreshCart(); // Synchronise le compteur global
     } catch (err) {
       setError('Erreur lors de la modification de la quantité');
     }
@@ -65,6 +69,7 @@ const Cart = ({ onClose }) => {
     try {
       await axios.post('http://localhost:5003/api/cart/remove', { productId }, { withCredentials: true });
       fetchCart();
+      refreshCart(); // Synchronise le compteur global
     } catch (err) {
       setError('Erreur lors de la suppression');
     }
@@ -74,6 +79,7 @@ const Cart = ({ onClose }) => {
     try {
       await axios.post('http://localhost:5003/api/cart/clear', {}, { withCredentials: true });
       fetchCart();
+      refreshCart(); // Synchronise le compteur global
     } catch (err) {
       setError('Erreur lors du vidage du panier');
     }

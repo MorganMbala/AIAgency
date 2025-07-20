@@ -18,6 +18,7 @@ import Signup from "./pages/Signup";
 import Dashboard from "./pages/Dashboard";
 import Explore from "./pages/Explore";
 import { GoogleOAuthProvider } from "@react-oauth/google";
+import { CartProvider } from "./contexts/CartContext.jsx";
 
 const Home = () => (
   <>
@@ -57,6 +58,7 @@ const ContactPage = () => (
 const App = () => {
   return (
     <GoogleOAuthProvider clientId="585146384175-9rb4vohsrm3l09378tfpib2g17kf8ni5.apps.googleusercontent.com">
+      <CartProvider>
         <BrowserRouter>
           <ScrollToHash />
           <Routes>
@@ -69,6 +71,7 @@ const App = () => {
             <Route path="/dashboard" element={<Dashboard />} />
           </Routes>
         </BrowserRouter>
+      </CartProvider>
     </GoogleOAuthProvider>
   );
 };
