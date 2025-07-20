@@ -52,11 +52,11 @@ const Navbar = () => {
           </Link>
           {/* Menu centré, sans underline ni CASES */}
           <div className="hidden md:flex gap-10 items-center flex-1">
-            <Link to="/" className="text-black font-semibold text-lg tracking-wide px-2 hover:text-black transition no-underline" style={{ textDecoration: 'none' }}>HOME</Link>
+            <Link to="/explore" className="text-black font-semibold text-lg tracking-wide px-2 hover:text-black transition no-underline" style={{ textDecoration: 'none' }}>EXPLORE</Link>
             {/* SERVICES Dropdown refait comme l'image, interactif */}
             <div className="relative" onMouseEnter={() => setServicesOpen(true)} onMouseLeave={() => { setServicesOpen(false); setActiveServiceCategory('AI Services'); }}>
-              <button className="text-black font-semibold text-lg tracking-wide px-2 hover:text-black transition flex items-center gap-1 focus:outline-none no-underline" style={{ textDecoration: 'none' }}>
-                Services <span className="text-xs">▼</span>
+              <button className="text-black font-semibold text-lg tracking-wide px-2 hover:text-black transition flex items-center gap-1 focus:outline-none no-underline uppercase" style={{ textDecoration: 'none' }}>
+                SERVICES <span className="text-xs">▼</span>
               </button>
               {servicesOpen && (
                 <div className="absolute left-0 top-full mt-2 w-screen max-w-none bg-white border border-gray-200 shadow-2xl rounded-xl flex z-30 min-h-[350px]">

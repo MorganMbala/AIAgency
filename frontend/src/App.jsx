@@ -16,6 +16,7 @@ import ScrollToHash from "./utils/ScrollToHash";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Dashboard from "./pages/Dashboard";
+import Explore from "./pages/Explore";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 
 const Home = () => (
@@ -60,6 +61,7 @@ const App = () => {
         <ScrollToHash />
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/explore" element={<Explore />} />
           <Route path="/conversation" element={<ConversationPage />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/login" element={<Login />} />
