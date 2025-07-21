@@ -1,14 +1,20 @@
 const jwt = require('jsonwebtoken');
 
 module.exports = (req, res, next) => {
-  const token = req.cookies?.token || req.headers.authorization?.split(' ')[1];
-  if (!token) return res.status(401).json({ error: 'Token manquant' });
-
+  let token = req.cookies.token;
+  // Si le token n'est pas dans les cookies, tente de le récupérer dans l'en-tête Authorization
+  if (!token && req.headers.authorization) {
+    const parts = req.headers.authorization.split(' ');
+    if (parts.length === 2 && parts[0] === 'Bearer') {
+      token = parts[1];
+    }
+  }
+  if (!token) return res.status(401).json({ message: 'Non authentifié' });
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.userId = decoded.id;
+    const payload = jwt.verify(token, process.env.JWT_SECRET);
+    req.userId = payload.user_id;
     next();
   } catch (err) {
-    res.status(401).json({ error: 'Token invalide' });
+    return res.status(401).json({ message: 'Token invalide' });
   }
 };

@@ -15,7 +15,6 @@ import Contactoptions from "./components/Contactoptions";
 import ScrollToHash from "./utils/ScrollToHash";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
-import Dashboard from "./pages/Dashboard";
 import Explore from "./pages/Explore";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { CartProvider } from "./contexts/CartContext.jsx";
@@ -68,7 +67,7 @@ const App = () => {
             <Route path="/contact" element={<ContactPage />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Signup />} />
-            <Route path="/dashboard" element={<Dashboard />} />
+        
           </Routes>
         </BrowserRouter>
       </CartProvider>

@@ -35,17 +35,21 @@ const login = async (req, res) => {
     if (!user) return res.status(400).json({ message: 'Identifiants invalides.' });
     const valid = await bcrypt.compare(password, user.password);
     if (!valid) return res.status(400).json({ message: 'Identifiants invalides.' });
-    const token = jwt.sign({ id: user.id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '1d' });
-    res
-      .cookie('token', token, {
-        httpOnly: true,
-        secure: false, // mettre true en production (HTTPS)
-        sameSite: 'Lax', // 'None' si cross-domain/port en HTTPS
-        maxAge: 24 * 60 * 60 * 1000
-      })
-      .json({ user: { id: user.id, username: user.username, email: user.email, role: user.role } });
+    const token = jwt.sign({
+      user_id: user.id,
+      username: user.username,
+      role: user.role
+    }, process.env.JWT_SECRET, { expiresIn: '7d' });
+    // Envoi du cookie JWT optimal
+    res.cookie('token', token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+      domain: 'localhost'
+    });
+    res.json({ message: 'Connexion réussie', user: { id: user.id, username: user.username, role: user.role } });
   } catch (err) {
-    console.error('Login error:', err);
     res.status(500).json({ message: 'Erreur serveur', error: err.message });
   }
 };
@@ -111,15 +115,20 @@ const googleAuth = async (req, res) => {
 
 // GET /api/auth/me - retourne l'utilisateur connecté
 const me = async (req, res) => {
+  let token = req.cookies.token;
+  // Si le token n'est pas dans les cookies, tente de le récupérer dans l'en-tête Authorization
+  if (!token && req.headers.authorization) {
+    const parts = req.headers.authorization.split(' ');
+    if (parts.length === 2 && parts[0] === 'Bearer') {
+      token = parts[1];
+    }
+  }
+  if (!token) return res.status(401).json({ message: 'Non authentifié' });
   try {
-    const token = req.cookies.token || (req.headers['authorization'] && req.headers['authorization'].split(' ')[1]);
-    if (!token) return res.status(401).json({ message: 'Non authentifié' });
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    const user = await User.findByPk(decoded.id);
-    if (!user) return res.status(404).json({ message: 'Utilisateur non trouvé' });
-    res.json({ user: { id: user.id, username: user.username, email: user.email, role: user.role } });
+    const payload = jwt.verify(token, process.env.JWT_SECRET);
+    res.json({ user: payload });
   } catch (err) {
-    res.status(401).json({ message: 'Token invalide', error: err.message });
+    res.status(401).json({ message: 'Token invalide' });
   }
 };
 

@@ -6,11 +6,24 @@ import { FiSearch } from "react-icons/fi";
 const Explore = () => {
   const [products, setProducts] = useState([]);
   const [search, setSearch] = useState("");
+  const [loginError, setLoginError] = useState(null);
+  const [loginSuccess, setLoginSuccess] = useState(false);
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     axios.get("http://localhost:5002/api/products")
       .then(res => setProducts(res.data))
       .catch(() => setProducts([]));
+  }, []);
+
+  useEffect(() => {
+    axios.get('http://localhost:4000/api/auth/me', { withCredentials: true })
+      .then(res => {
+        setUser(res.data.user);
+      })
+      .catch(() => {
+        setUser(null);
+      });
   }, []);
 
   // Regroupe les produits filtrés par catégorie
@@ -33,6 +46,22 @@ const Explore = () => {
       // Optionnel : afficher une notification/toast
     } catch (err) {
       alert('Erreur lors de l\'ajout au panier');
+    }
+  };
+
+  const handleLogin = async (credentials) => {
+    setLoginError(null);
+    setLoginSuccess(false);
+    try {
+      const res = await axios.post('http://localhost:4000/api/auth/login', credentials, { withCredentials: true });
+      if (res.data && res.data.token) {
+        setLoginSuccess(true);
+        // Redirection ou autre logique après succès
+      } else {
+        setLoginError('Connexion échouée.');
+      }
+    } catch (err) {
+      setLoginError(err.response?.data?.message || 'Erreur lors de la connexion.');
     }
   };
 
@@ -74,6 +103,8 @@ const Explore = () => {
             </div>
           </div>
         ))}
+        {loginError && <div className="text-red-500 text-center mt-4">{loginError}</div>}
+        {loginSuccess && <div className="text-green-500 text-center mt-4">Connexion réussie !</div>}
       </div>
       {/* Icône de chat flottante en bas à droite */}
       <button

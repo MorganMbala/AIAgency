@@ -8,13 +8,9 @@ const cookieParser = require('cookie-parser');
 const app = express();
 app.use(express.json());
 app.use(cookieParser());
-// CORS avancé pour autoriser Authorization et credentials
+// CORS optimal pour JWT cookie
 app.use(cors({
-  origin: [
-    'http://localhost:3000', // dashboard React
-    'http://localhost:5173', // Vite frontend
-    'http://localhost:4000', // si besoin
-  ],
+  origin: 'http://localhost:5173', // Vite frontend
   credentials: true,
   allowedHeaders: ['Content-Type', 'Authorization'],
 }));

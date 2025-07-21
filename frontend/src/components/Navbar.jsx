@@ -17,6 +17,7 @@ const Navbar = () => {
 
   // Détection dynamique de l'utilisateur connecté via /api/auth/me
   useEffect(() => {
+    // Toujours withCredentials: true pour JWT cookie
     axios.get("http://localhost:4000/api/auth/me", { withCredentials: true })
       .then(res => setUser(res.data.user))
       .catch(() => setUser(null));
@@ -24,7 +25,7 @@ const Navbar = () => {
 
   // Rafraîchir le compteur panier à chaque ouverture/fermeture du panier
   useEffect(() => {
-    if (user) refreshCart();
+    if (user) refreshCart(); // refreshCart doit aussi utiliser withCredentials: true
   }, [user, showCart, refreshCart]);
 
   const handleLogout = async () => {

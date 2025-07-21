@@ -89,6 +89,39 @@ const Cart = ({ onClose }) => {
     }
   };
 
+  const handlePlaceOrder = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      // Récupère le nom d'utilisateur via contexte ou autre (exemple)
+      const userName = window.localStorage.getItem('userName'); // à adapter selon ta logique d'auth
+      const cartPayload = cartItems.map(item => ({
+        product_id: item.productId,
+        quantity: item.quantity,
+        price: item.price,
+        name: item.name,
+        description: item.description,
+        image: item.image
+      }));
+      const res = await axios.post(
+        'http://localhost:8000/orders/validate',
+        { cart_items: cartPayload, user_name: userName },
+        { withCredentials: true }
+      );
+      if (res.data && res.data.invoice_url) {
+        window.open('http://localhost:8000' + res.data.invoice_url, '_blank'); // Ouvre la facture PDF dans un nouvel onglet
+        // Optionnel : afficher une notification de succès
+      }
+    } catch (err) {
+      if (err.response && err.response.data && err.response.data.detail) {
+        setError('Erreur: ' + err.response.data.detail);
+      } else {
+        setError('Erreur lors de la validation de la commande');
+      }
+    }
+    setLoading(false);
+  };
+
   const subTotal = cartItems.reduce((sum, item) => sum + (item.price || 0) * item.quantity, 0);
 
   return (
@@ -154,7 +187,13 @@ const Cart = ({ onClose }) => {
               </div>
             </div>
             <div className="mt-5">
-              <button className="w-full py-3 rounded-lg text-white font-semibold text-lg bg-cyan-400 hover:bg-cyan-500 transition">Place Order</button>
+              <button
+                className="w-full py-3 rounded-lg text-white font-semibold text-lg bg-cyan-400 hover:bg-cyan-500 transition"
+                onClick={handlePlaceOrder}
+                disabled={loading}
+              >
+                {loading ? 'Traitement...' : 'Place Order'}
+              </button>
             </div>
           </>
         )}

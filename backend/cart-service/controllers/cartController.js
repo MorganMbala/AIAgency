@@ -3,9 +3,10 @@ const axios = require('axios');
 
 // Ajouter un produit au panier
 exports.addToCart = async (req, res) => {
-  const { productId, quantity = 1 } = req.body;
-  const userId = req.userId;
+  const userId = req.userId; // récupéré via le middleware JWT
+  const { productId, quantity } = req.body;
   console.log('addToCart called:', { userId, productId, quantity });
+  if (!userId) return res.status(401).json({ message: 'Non authentifié' });
   if (!productId) {
     console.error('Erreur: productId requis');
     return res.status(400).json({ error: 'productId requis' });

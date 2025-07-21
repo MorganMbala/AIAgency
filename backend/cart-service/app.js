@@ -12,6 +12,7 @@ app.use(cookieParser());
 app.use(cors({
   origin: 'http://localhost:5173',
   credentials: true,
+  allowedHeaders: ['Content-Type', 'Authorization'],
 }));
 
 mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost:27017/cart-service', {
