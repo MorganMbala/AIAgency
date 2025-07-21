@@ -21,7 +21,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.include_router(orders.router, prefix="/orders")
+# Correction du préfixe pour exposer les routes comme attendu par le frontend
+app.include_router(orders.router, prefix="/api/orders")
 
 # Correction du chemin static pour servir les factures PDF
 static_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "../static"))

@@ -3,12 +3,14 @@ import { AiOutlinePlus, AiOutlineMinus } from 'react-icons/ai';
 import { MdOutlineCancel } from 'react-icons/md';
 import axios from 'axios';
 import { useCart } from '../contexts/CartContext.jsx';
+import { useNavigate } from 'react-router-dom';
 
 const Cart = ({ onClose }) => {
   const { refreshCart } = useCart();
   const [cartItems, setCartItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchCart();
@@ -89,40 +91,17 @@ const Cart = ({ onClose }) => {
     }
   };
 
-  const handlePlaceOrder = async () => {
-    setLoading(true);
-    setError(null);
-    try {
-      // Récupère le nom d'utilisateur via contexte ou autre (exemple)
-      const userName = window.localStorage.getItem('userName'); // à adapter selon ta logique d'auth
-      const cartPayload = cartItems.map(item => ({
-        product_id: item.productId,
-        quantity: item.quantity,
-        price: item.price,
-        name: item.name,
-        description: item.description,
-        image: item.image
-      }));
-      const res = await axios.post(
-        'http://localhost:8000/orders/validate',
-        { cart_items: cartPayload, user_name: userName },
-        { withCredentials: true }
-      );
-      if (res.data && res.data.invoice_url) {
-        window.open('http://localhost:8000' + res.data.invoice_url, '_blank'); // Ouvre la facture PDF dans un nouvel onglet
-        // Optionnel : afficher une notification de succès
-      }
-    } catch (err) {
-      if (err.response && err.response.data && err.response.data.detail) {
-        setError('Erreur: ' + err.response.data.detail);
-      } else {
-        setError('Erreur lors de la validation de la commande');
-      }
-    }
-    setLoading(false);
+  // Ajout de la redirection vers StripeCheckout au clic sur Place Order
+  const handlePlaceOrder = () => {
+    navigate('/checkout', { state: { cartItems } });
   };
 
   const subTotal = cartItems.reduce((sum, item) => sum + (item.price || 0) * item.quantity, 0);
+
+  // LOG INTELLIGENT : Affiche le panier à chaque update
+  useEffect(() => {
+    console.log('Cart.jsx cartItems (à chaque update):', cartItems);
+  }, [cartItems]);
 
   return (
     <div className="bg-half-transparent w-full fixed nav-item top-0 right-0 z-50">
@@ -186,13 +165,26 @@ const Cart = ({ onClose }) => {
                 <p className="font-semibold">${subTotal}</p>
               </div>
             </div>
-            <div className="mt-5">
+            <div className="mt-5 flex flex-col gap-3">
               <button
                 className="w-full py-3 rounded-lg text-white font-semibold text-lg bg-cyan-400 hover:bg-cyan-500 transition"
-                onClick={handlePlaceOrder}
-                disabled={loading}
+                onClick={() => {
+                  console.log('Panier transmis à StripeCheckout:', cartItems);
+                  navigate('/stripe-checkout', { state: { cartItems } });
+                }}
+                disabled={cartItems.length === 0}
               >
-                {loading ? 'Traitement...' : 'Place Order'}
+                Place Order
+              </button>
+              <button
+                className="w-full py-3 rounded-lg text-white font-semibold text-lg bg-green-600 hover:bg-green-700 transition"
+                onClick={() => {
+                  console.log('Panier transmis à Checkout:', cartItems);
+                  navigate('/checkout', { state: { cartItems } });
+                }}
+                disabled={cartItems.length === 0}
+              >
+                Checkout
               </button>
             </div>
           </>

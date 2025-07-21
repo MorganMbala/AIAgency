@@ -11,5 +11,5 @@ def create_stripe_payment(amount, currency, user_id):
         currency=currency,
         metadata={"user_id": user_id}
     )
-    # Pour test, on simule le paiement réussi
-    return {"id": intent.id, "status": "succeeded"}
+    # Retourne le client_secret pour Stripe Elements
+    return {"id": intent.id, "status": intent.status, "client_secret": intent.client_secret}
