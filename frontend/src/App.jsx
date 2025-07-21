@@ -20,6 +20,7 @@ import StripeCheckout from "./pages/StripeCheckout.jsx";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { CartProvider } from "./contexts/CartContext.jsx";
 import DashboardIframe from "./pages/DashboardIframe.jsx";
+import OrderHistory from "./pages/OrderHistory.jsx";
 
 const Home = () => (
   <>
@@ -71,6 +72,7 @@ const App = () => {
             <Route path="/register" element={<Signup />} />
             <Route path="/stripe-checkout" element={<StripeCheckout />} />
             <Route path="/dashboard" element={<DashboardIframe />} />
+            <Route path="/order-history" element={<OrderHistory />} />
           </Routes>
         </BrowserRouter>
       </CartProvider>

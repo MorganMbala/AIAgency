@@ -153,3 +153,47 @@ async def confirm_order(request: Request, db: Session = Depends(get_db), token: 
         "status": "validated",
         "invoice_url": invoice_url
     }
+
+@router.get("/history")
+async def get_order_history(db: Session = Depends(get_db), token: str = Cookie(None)):
+    if not token:
+        raise HTTPException(status_code=401, detail="JWT cookie manquant. Veuillez vous connecter.")
+    try:
+        payload = jwt.decode(token, JWT_SECRET, algorithms=["HS256"])
+        user_id = payload.get("user_id") or payload.get("id") or payload.get("sub")
+    except Exception:
+        raise HTTPException(status_code=401, detail="Invalid token")
+    if not user_id:
+        raise HTTPException(status_code=401, detail="User ID not found in token")
+    orders = db.query(Order).filter(Order.user_id == user_id).order_by(Order.created_at.desc()).all()
+    result = []
+    import requests
+    TECH_SERVICE_URL = "http://localhost:5002/api/products/bulk"
+    for order in orders:
+        items = db.query(OrderItem).filter(OrderItem.order_id == order.id).all()
+        product_ids = [item.product_id for item in items]
+        # Appel au tech-service pour enrichir les infos produits
+        products = []
+        if product_ids:
+            try:
+                resp = requests.post(TECH_SERVICE_URL, json={"ids": product_ids}, timeout=3)
+                if resp.status_code == 200:
+                    products = resp.json()
+            except Exception:
+                products = []
+        def enrich_item(item):
+            prod = next((p for p in products if str(p.get("_id")) == str(item.product_id)), {})
+            return {
+                "productId": item.product_id,
+                "name": getattr(item, 'product_name', prod.get("name", "")),
+                "quantity": item.quantity,
+                "image": prod.get("image", "")
+            }
+        result.append({
+            "id": order.id,
+            "date": order.created_at.strftime('%Y-%m-%d %H:%M'),
+            "total": order.total,
+            "invoice_url": f"http://localhost:8000/static/invoices/invoice_{order.id}.pdf",
+            "items": [enrich_item(item) for item in items]
+        })
+    return result

@@ -126,7 +126,17 @@ const Cart = ({ onClose }) => {
         ) : error ? (
           <div className="text-red-500 text-center py-10">{error}</div>
         ) : cartItems.length === 0 ? (
-          <div className="text-center py-10 text-gray-400">Votre panier est vide.</div>
+          <>
+            <div className="text-center py-10 text-gray-400">Votre panier est vide.</div>
+            <div className="mt-2 flex flex-col gap-3">
+              <button
+                className="w-full py-2 rounded-lg text-cyan-700 font-semibold border border-cyan-400 hover:bg-cyan-50"
+                onClick={() => navigate('/order-history')}
+              >
+                Voir l'historique des commandes
+              </button>
+            </div>
+          </>
         ) : (
           <>
             {cartItems.map((item) => (
@@ -176,7 +186,12 @@ const Cart = ({ onClose }) => {
               >
                 Place Order
               </button>
-              
+              <button
+                className="w-full py-2 rounded-lg text-cyan-700 font-semibold border border-cyan-400 hover:bg-cyan-50"
+                onClick={() => navigate('/order-history')}
+              >
+                Voir l'historique des commandes
+              </button>
             </div>
           </>
         )}
