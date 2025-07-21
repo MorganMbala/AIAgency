@@ -10,7 +10,10 @@ app.use(express.json());
 app.use(cookieParser());
 // CORS optimal pour JWT cookie
 app.use(cors({
-  origin: 'http://localhost:5173', // Vite frontend
+  origin: [
+    'http://localhost:5173', // Vite frontend
+    'http://localhost:3000', // Dashboard admin
+  ],
   credentials: true,
   allowedHeaders: ['Content-Type', 'Authorization'],
 }));

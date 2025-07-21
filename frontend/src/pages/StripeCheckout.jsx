@@ -57,10 +57,44 @@ const CheckoutForm = ({ cartItems }) => {
   return (
     <div className="max-w-md mx-auto mt-12 p-8 bg-white rounded-lg shadow-lg text-black">
       {step === "payment" ? (
-        <form onSubmit={handleSubmit}>
-          <h2 className="text-2xl font-bold mb-6">Paiement sécurisé</h2>
-          <CardElement options={{ style: { base: { fontSize: "18px" } } }} />
-          <button type="submit" disabled={!stripe || loading} className="bg-cyan-600 text-white px-6 py-2 rounded font-bold w-full mt-4">
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <h2 className="text-2xl font-bold mb-4">Paiement du panier</h2>
+          <div className="bg-gray-50 rounded-lg p-4 mb-4">
+            <div className="font-semibold mb-1">Votre commande E-WebGo</div>
+            <div className="text-cyan-700 font-bold text-lg mb-1">{cartItems.length} produit(s)</div>
+            <div className="text-gray-600 text-sm mb-2">Vérifiez vos articles et renseignez vos informations de paiement pour finaliser la commande.</div>
+          </div>
+          <div className="flex gap-8 justify-center mb-4">
+            <div className="flex flex-col items-center">
+              <span className="text-lg font-semibold mb-1">Carte bancaire</span>
+              <span className="text-2xl">💳</span>
+            </div>
+            <div className="flex flex-col items-center">
+              <span className="text-lg font-semibold mb-1">PayPal</span>
+              <span className="text-2xl">💰</span>
+            </div>
+          </div>
+          <div className="mb-2">
+            <label className="block text-sm font-medium mb-1">Nom sur la carte</label>
+            <input type="text" className="w-full border rounded px-3 py-2" placeholder="Jean Dupont" required />
+          </div>
+          <div className="mb-2">
+            <label className="block text-sm font-medium mb-1">Numéro de carte</label>
+            <CardElement options={{ style: { base: { fontSize: "18px" } } }} />
+            <div className="flex gap-2 mt-2">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/0/04/Mastercard-logo.png" alt="Mastercard" className="h-6" />
+              <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/Visa_Logo.png" alt="Visa" className="h-6" />
+            </div>
+          </div>
+          <div className="flex items-center mb-2">
+            <input type="checkbox" className="mr-2" defaultChecked />
+            <span className="text-sm">Sauvegarder mes informations de paiement pour mes prochaines commandes.</span>
+          </div>
+          <div className="bg-gray-100 rounded p-3 mb-4 text-sm text-gray-600">
+            En cliquant sur "Autoriser le paiement", vous validez votre commande E-WebGo. Aucun abonnement, aucun prélèvement récurrent. Vous recevrez une facture PDF après paiement.
+          </div>
+          <div className="text-xl font-bold text-cyan-700 mb-2">Montant total à payer : $ {cartItems.reduce((sum, item) => sum + (item.price || 0) * item.quantity, 0).toFixed(2)} </div>
+          <button type="submit" disabled={!stripe || loading} className="bg-cyan-600 text-white px-6 py-3 rounded font-bold w-full mt-2 text-lg">
             {loading ? "Paiement..." : "Autoriser le paiement"}
           </button>
         </form>

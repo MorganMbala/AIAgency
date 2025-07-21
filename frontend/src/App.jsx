@@ -16,10 +16,10 @@ import ScrollToHash from "./utils/ScrollToHash";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Explore from "./pages/Explore";
-import Checkout from "./pages/Checkout.jsx";
 import StripeCheckout from "./pages/StripeCheckout.jsx";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { CartProvider } from "./contexts/CartContext.jsx";
+import DashboardIframe from "./pages/DashboardIframe.jsx";
 
 const Home = () => (
   <>
@@ -69,8 +69,8 @@ const App = () => {
             <Route path="/contact" element={<ContactPage />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Signup />} />
-            <Route path="/checkout" element={<Checkout />} />
             <Route path="/stripe-checkout" element={<StripeCheckout />} />
+            <Route path="/dashboard" element={<DashboardIframe />} />
           </Routes>
         </BrowserRouter>
       </CartProvider>

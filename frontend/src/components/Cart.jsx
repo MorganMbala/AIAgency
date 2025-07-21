@@ -176,16 +176,7 @@ const Cart = ({ onClose }) => {
               >
                 Place Order
               </button>
-              <button
-                className="w-full py-3 rounded-lg text-white font-semibold text-lg bg-green-600 hover:bg-green-700 transition"
-                onClick={() => {
-                  console.log('Panier transmis à Checkout:', cartItems);
-                  navigate('/checkout', { state: { cartItems } });
-                }}
-                disabled={cartItems.length === 0}
-              >
-                Checkout
-              </button>
+              
             </div>
           </>
         )}

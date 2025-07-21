@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import axios from "axios";
 import { FiSearch } from "react-icons/fi";
+import { useNavigate } from "react-router-dom";
 
 const Explore = () => {
   const [products, setProducts] = useState([]);
@@ -9,6 +10,8 @@ const Explore = () => {
   const [loginError, setLoginError] = useState(null);
   const [loginSuccess, setLoginSuccess] = useState(false);
   const [user, setUser] = useState(null);
+  const [showLoginMessage, setShowLoginMessage] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios.get("http://localhost:5002/api/products")
@@ -41,6 +44,12 @@ const Explore = () => {
   }, {});
 
   const handleAddToCart = async (product) => {
+    if (!user) {
+      setShowLoginMessage(true);
+      setTimeout(() => setShowLoginMessage(false), 2000);
+      setTimeout(() => navigate('/login'), 2000);
+      return;
+    }
     try {
       await axios.post('http://localhost:5003/api/cart/add', { productId: product._id || product.id, quantity: 1 }, { withCredentials: true });
       // Optionnel : afficher une notification/toast
@@ -105,6 +114,11 @@ const Explore = () => {
         ))}
         {loginError && <div className="text-red-500 text-center mt-4">{loginError}</div>}
         {loginSuccess && <div className="text-green-500 text-center mt-4">Connexion réussie !</div>}
+        {showLoginMessage && (
+          <div className="fixed bottom-24 right-8 bg-red-500 text-white px-6 py-3 rounded shadow-lg z-50">
+            Pour ajouter au panier, vous devez vous connecter.
+          </div>
+        )}
       </div>
       {/* Icône de chat flottante en bas à droite */}
       <button

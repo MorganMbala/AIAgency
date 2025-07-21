@@ -126,7 +126,10 @@ const me = async (req, res) => {
   if (!token) return res.status(401).json({ message: 'Non authentifié' });
   try {
     const payload = jwt.verify(token, process.env.JWT_SECRET);
-    res.json({ user: payload });
+    // Récupère l'utilisateur en base pour avoir le rôle à jour
+    const user = await User.findByPk(payload.user_id || payload.id);
+    if (!user) return res.status(401).json({ message: 'Utilisateur non trouvé' });
+    res.json({ user: { id: user.id, username: user.username, email: user.email, role: user.role, code: user.code } });
   } catch (err) {
     res.status(401).json({ message: 'Token invalide' });
   }
