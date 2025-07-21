@@ -1,5 +1,6 @@
 from fpdf import FPDF
 import os
+import qrcode
 
 def generate_invoice_pdf(order, cart_items, user_name=None):
     pdf = FPDF()
@@ -91,5 +92,12 @@ def generate_invoice_pdf(order, cart_items, user_name=None):
     filename = f"invoice_{order.id}.pdf"
     path = os.path.join("static", "invoices", filename)
     os.makedirs(os.path.dirname(path), exist_ok=True)
+    # Génération du QR code (URL du PDF)
+    pdf_url = f"https://ton-domaine.com/static/invoices/{filename}"  # adapte l'URL à ton domaine
+    qr_img_path = os.path.join("static", "invoices", f"qr_{order.id}.png")
+    qr = qrcode.make(pdf_url)
+    qr.save(qr_img_path)
+    # Ajout du QR code en bas à gauche de la page
+    pdf.image(qr_img_path, x=10, y=260, w=30)
     pdf.output(path)
     return filename
