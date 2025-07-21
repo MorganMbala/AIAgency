@@ -99,9 +99,21 @@ const CheckoutForm = ({ cartItems }) => {
           </button>
         </form>
       ) : (
-        <div className="text-center">
-          <h2 className="text-2xl font-bold mb-4 text-green-600">Paiement validé !</h2>
-          <a href={`http://localhost:8000${invoiceUrl}`} target="_blank" rel="noopener noreferrer" className="underline text-cyan-700 font-semibold">Voir la facture PDF</a>
+        <div className="flex flex-col items-center justify-center py-16">
+          <div className="mb-6">
+            {/* Icône validation verte */}
+            <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="32" cy="32" r="32" fill="#22C55E"/>
+              <path d="M44 24L29 39L20 30" stroke="white" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </div>
+          <h2 className="text-2xl font-bold mb-2 text-gray-900">Thanks for your order</h2>
+          <div className="text-gray-600 mb-6">We're almost there !!! </div>
+          <div className="bg-gray-50 rounded-lg shadow p-4 w-full max-w-md flex items-center justify-between mb-4 border border-gray-200">
+            <span className="font-semibold text-gray-700">Total Amount</span>
+            <span className="font-bold text-gray-700">${cartItems.reduce((sum, item) => sum + (item.price || 0) * item.quantity, 0).toFixed(2)}</span>
+          </div>
+          <a href={`http://localhost:8000${invoiceUrl}`} target="_blank" rel="noopener noreferrer" className="underline text-cyan-700 font-semibold mt-2">Voir la facture PDF</a>
         </div>
       )}
     </div>
