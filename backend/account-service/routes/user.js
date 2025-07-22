@@ -109,4 +109,15 @@ router.delete('/employees/:id', authenticate, authorize('admin'), async (req, re
   }
 });
 
+// GET /api/users/:id - retourne le nom d'utilisateur pour un id donné
+router.get('/:id', async (req, res) => {
+  try {
+    const user = await User.findByPk(req.params.id);
+    if (!user) return res.status(404).json({ error: 'Utilisateur non trouvé.' });
+    res.json({ id: user.id, username: user.username, name: user.name || user.username });
+  } catch (err) {
+    res.status(500).json({ error: 'Erreur serveur lors de la récupération de l’utilisateur.' });
+  }
+});
+
 module.exports = router;

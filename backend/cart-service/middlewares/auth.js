@@ -12,7 +12,7 @@ module.exports = (req, res, next) => {
   if (!token) return res.status(401).json({ message: 'Non authentifié' });
   try {
     const payload = jwt.verify(token, process.env.JWT_SECRET);
-    req.userId = payload.user_id;
+    req.userId = payload.user_id || payload.id || payload.sub;
     next();
   } catch (err) {
     return res.status(401).json({ message: 'Token invalide' });

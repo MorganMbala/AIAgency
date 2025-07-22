@@ -197,3 +197,70 @@ async def get_order_history(db: Session = Depends(get_db), token: str = Cookie(N
             "items": [enrich_item(item) for item in items]
         })
     return result
+
+ACCOUNT_SERVICE_URL = "http://localhost:5001/api/users/"
+
+def get_username(user_id):
+    import requests
+    try:
+        resp = requests.get(f"{ACCOUNT_SERVICE_URL}{user_id}", timeout=2)
+        if resp.status_code == 200:
+            data = resp.json()
+            # Prend le nom ou le username si disponible
+            return data.get("name") or data.get("username") or f"User {user_id}"
+    except Exception:
+        pass
+    return f"User {user_id}"
+
+@router.get("/all")
+def get_all_orders(db: Session = Depends(get_db), page: int = 1, limit: int = 20):
+    import requests
+    TECH_SERVICE_URL = "http://localhost:5002/api/products/bulk"
+    offset = (page - 1) * limit
+    orders = db.query(Order).order_by(Order.created_at.desc()).offset(offset).limit(limit).all()
+    print(f"Commandes récupérées depuis la base : {orders}")
+    # Récupérer tous les items en une seule requête
+    order_ids = [order.id for order in orders]
+    items = db.query(OrderItem).filter(OrderItem.order_id.in_(order_ids)).all()
+    # Regrouper les items par commande
+    items_by_order = {}
+    for item in items:
+        items_by_order.setdefault(item.order_id, []).append(item)
+    # Récupérer tous les product_ids uniques
+    all_product_ids = list(set([item.product_id for item in items]))
+    products = []
+    if all_product_ids:
+        try:
+            resp = requests.post(TECH_SERVICE_URL, json={"ids": all_product_ids}, timeout=3)
+            if resp.status_code == 200:
+                products = resp.json()
+        except Exception as e:
+            print(f"Erreur enrichissement produits bulk: {e}")
+            products = []
+    # Indexer les produits par id
+    products_by_id = {str(prod.get("_id")): prod for prod in products}
+    result = []
+    for order in orders:
+        try:
+            order_items = items_by_order.get(order.id, [])
+            def enrich_item(item):
+                prod = products_by_id.get(str(item.product_id), {})
+                return {
+                    "name": prod.get("name", getattr(item, 'product_name', str(item.product_id))),
+                    "image": prod.get("image", ""),
+                    "quantity": item.quantity
+                }
+            customer_name = get_username(order.user_id)
+            result.append({
+                "OrderID": order.id,
+                "CustomerName": customer_name,
+                "TotalAmount": order.total,
+                "OrderItems": ', '.join([enrich_item(item)["name"] for item in order_items]),
+                "Status": getattr(order, 'status', ''),
+                "StatusBg": "#22C55E" if getattr(order, 'status', '') == "validated" else "#FB9678",
+                "ProductImage": order_items and enrich_item(order_items[0])["image"] or "",
+            })
+        except Exception as e:
+            print(f"Erreur lors du mapping de la commande {order.id}: {e}")
+    print(f"Résultat envoyé au frontend : {result}")
+    return result

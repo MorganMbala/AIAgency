@@ -103,7 +103,8 @@ const googleAuth = async (req, res) => {
         httpOnly: true,
         secure: false, // mettre true en production (HTTPS)
         sameSite: 'Lax', // 'None' si cross-domain/port en HTTPS
-        maxAge: 24 * 60 * 60 * 1000
+        maxAge: 24 * 60 * 60 * 1000,
+        domain: 'localhost'
       })
       .status(200)
       .json({ user: { id: user.id, username: user.username, email: user.email, role: user.role, code: user.code } });
