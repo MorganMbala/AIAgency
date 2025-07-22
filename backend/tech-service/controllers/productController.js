@@ -65,7 +65,8 @@ exports.getProductsBulk = async (req, res) => {
     if (!Array.isArray(ids) || ids.length === 0) {
       return res.status(400).json({ error: 'Aucune ID fournie' });
     }
-    const products = await Product.find({ _id: { $in: ids } });
+    // Projection pour ne retourner que les champs nécessaires
+    const products = await Product.find({ _id: { $in: ids } }, 'name price image description category _id');
     res.json(products);
   } catch (err) {
     res.status(500).json({ error: err.message });
