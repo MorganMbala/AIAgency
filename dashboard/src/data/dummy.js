@@ -3937,10 +3937,11 @@ export const financialChartData = [
   },
 ];
 export const PyramidData = [
-  { x: 'Sweet Treats', y: 120, text: '120 cal' },
-  { x: 'Milk, Youghnut, Cheese', y: 435, text: '435 cal' },
-  { x: 'Vegetables', y: 470, text: '470 cal' },
-  { x: 'Meat, Poultry, Fish', y: 475, text: '475 cal' },
-  { x: 'Fruits', y: 520, text: '520 cal' },
-  { x: 'Bread, Rice, Pasta', y: 930, text: '930 cal' },
+  { x: 'AI Development', y: 120, text: '120 ventes' },
+  { x: 'Full Stack Development', y: 95, text: '95 ventes' },
+  { x: 'Chatbot', y: 80, text: '80 ventes' },
+  { x: 'Face Recognition', y: 60, text: '60 ventes' },
+  { x: 'Mobile App', y: 150, text: '150 ventes' },
+  { x: 'E-commerce Website', y: 110, text: '110 ventes' },
 ];
+

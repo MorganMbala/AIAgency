@@ -15,40 +15,52 @@ const CheckoutForm = ({ cartItems }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!stripe || !elements) {
+      console.log("[StripeCheckout] Paiement non disponible: Stripe ou Elements non initialisés.");
+      alert("Paiement non disponible, veuillez réessayer.");
+      setLoading(false);
+      return;
+    }
     setLoading(true);
     try {
-      // 1. Crée le PaymentIntent côté backend
+      console.log("[StripeCheckout] Création du PaymentIntent côté backend...");
       const res = await axios.post(
         "http://localhost:8000/api/orders/create-payment-intent",
         { cart_items: cartItems },
         { withCredentials: true }
       );
+      console.log("[StripeCheckout] PaymentIntent créé:", res.data);
       const clientSecret = res.data.client_secret;
       const paymentIntentId = res.data.payment_intent_id;
 
-      // 2. Confirme le paiement avec Stripe Elements
+      console.log("[StripeCheckout] Confirmation du paiement Stripe...");
       const result = await stripe.confirmCardPayment(clientSecret, {
         payment_method: {
           card: elements.getElement(CardElement),
         },
       });
+      console.log("[StripeCheckout] Résultat Stripe:", result);
 
       if (result.paymentIntent && result.paymentIntent.status === "succeeded") {
-        // 3. Appelle le backend pour enregistrer la commande et générer la facture
+        console.log("[StripeCheckout] Paiement réussi, appel backend /confirm...");
         const confirmRes = await axios.post(
           "http://localhost:8000/api/orders/confirm",
           { cart_items: cartItems, payment_intent_id: paymentIntentId },
           { withCredentials: true }
         );
+        console.log("[StripeCheckout] Backend /confirm OK:", confirmRes.data);
         setInvoiceUrl(confirmRes.data.invoice_url);
         setStep("invoice");
         // 4. Vide le panier côté backend et rafraîchit le contexte global
+        console.log("[StripeCheckout] Suppression du panier côté backend...");
         await axios.post("http://localhost:5003/api/cart/clear", {}, { withCredentials: true });
         if (window.refreshCart) window.refreshCart(); // ou utilise le contexte Cart si disponible
       } else {
+        console.log("[StripeCheckout] Paiement échoué:", result);
         alert("Paiement échoué !");
       }
     } catch (err) {
+      console.error("[StripeCheckout] Erreur paiement:", err);
       alert("Erreur paiement !");
     }
     setLoading(false);
@@ -113,7 +125,7 @@ const CheckoutForm = ({ cartItems }) => {
             <span className="font-semibold text-gray-700">Total Amount</span>
             <span className="font-bold text-gray-700">${cartItems.reduce((sum, item) => sum + (item.price || 0) * item.quantity, 0).toFixed(2)}</span>
           </div>
-          <a href={`http://localhost:8000${invoiceUrl}`} target="_blank" rel="noopener noreferrer" className="underline text-cyan-700 font-semibold mt-2">Voir la facture PDF</a>
+          <a href={invoiceUrl.startsWith('http') ? invoiceUrl : `http://localhost:8000${invoiceUrl}`} target="_blank" rel="noopener noreferrer" className="underline text-cyan-700 font-semibold mt-2">Voir la facture PDF</a>
         </div>
       )}
     </div>

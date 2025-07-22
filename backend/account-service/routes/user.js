@@ -114,7 +114,7 @@ router.get('/:id', async (req, res) => {
   try {
     const user = await User.findByPk(req.params.id);
     if (!user) return res.status(404).json({ error: 'Utilisateur non trouvé.' });
-    res.json({ id: user.id, username: user.username, name: user.name || user.username });
+    res.json({ id: user.id, username: user.username, name: user.name || user.username, email: user.email }); // <-- Ajout email
   } catch (err) {
     res.status(500).json({ error: 'Erreur serveur lors de la récupération de l’utilisateur.' });
   }

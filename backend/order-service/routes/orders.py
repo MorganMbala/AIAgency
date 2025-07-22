@@ -147,11 +147,35 @@ async def confirm_order(request: Request, db: Session = Depends(get_db), token: 
         except Exception as e:
             print("Erreur enrichissement produits pour PDF:", e)
     invoice_path = generate_invoice_pdf(order, cart_items, user_name)
-    invoice_url = f"/static/invoices/{invoice_path}"
+    invoice_url = f"http://localhost:8000/static/invoices/{invoice_path}"  # URL absolue pour accès direct
+
+    # Récupère l'email utilisateur depuis le token ou la base
+    user_email = payload.get("email")
+    if not user_email:
+        # Si l'email n'est pas dans le token, requête l'account-service
+        import requests
+        try:
+            resp = requests.get(f"http://localhost:4000/api/users/{user_id}")
+            if resp.status_code == 200:
+                user_email = resp.json().get("email")
+        except Exception:
+            user_email = None
+    # Vérification de l'email avant notification
+    if not user_email or not isinstance(user_email, str) or "@" not in user_email:
+        print(f"Erreur : email utilisateur introuvable ou invalide, notification non envoyée. user_email={user_email}")
+    else:
+        try:
+            from routes.notify_client import notify_client
+            subject = "Confirmation de votre commande"
+            body = f"Merci pour votre commande ! Vous trouverez votre facture en pièce jointe."
+            notify_client(user_email, subject, body, invoice_url)
+        except Exception as e:
+            print(f"Erreur lors de l'envoi de l'email de confirmation: {e}")
+
     return {
         "order_id": order.id,
         "status": "validated",
-        "invoice_url": invoice_url
+        "invoice_url": invoice_url  # URL absolue pour affichage direct
     }
 
 @router.get("/history")

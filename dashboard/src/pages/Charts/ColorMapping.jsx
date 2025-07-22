@@ -25,7 +25,7 @@ const ColorMapping = () => {
           <SeriesCollectionDirective>
             <SeriesDirective
               dataSource={colorMappingData[0]}
-              name="USA"
+              name="Canada"
               xName="x"
               yName="y"
               type="Column"

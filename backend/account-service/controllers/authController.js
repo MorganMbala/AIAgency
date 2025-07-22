@@ -104,7 +104,8 @@ const googleAuth = async (req, res) => {
         secure: false, // mettre true en production (HTTPS)
         sameSite: 'Lax', // 'None' si cross-domain/port en HTTPS
         maxAge: 24 * 60 * 60 * 1000,
-        domain: 'localhost'
+        domain: 'localhost', // <-- Correction: assure que le domaine est bien localhost
+        path: '/', // <-- Ajout pour compatibilité
       })
       .status(200)
       .json({ user: { id: user.id, username: user.username, email: user.email, role: user.role, code: user.code } });
@@ -117,6 +118,8 @@ const googleAuth = async (req, res) => {
 // GET /api/auth/me - retourne l'utilisateur connecté
 const me = async (req, res) => {
   let token = req.cookies.token;
+  // Ajout log debug pour vérifier le cookie reçu
+  console.log('[auth/me] Cookie reçu:', req.cookies.token);
   // Si le token n'est pas dans les cookies, tente de le récupérer dans l'en-tête Authorization
   if (!token && req.headers.authorization) {
     const parts = req.headers.authorization.split(' ');
@@ -124,14 +127,23 @@ const me = async (req, res) => {
       token = parts[1];
     }
   }
-  if (!token) return res.status(401).json({ message: 'Non authentifié' });
+  if (!token) {
+    console.log('[auth/me] Aucun token JWT trouvé');
+    return res.status(401).json({ message: 'Non authentifié' });
+  }
   try {
     const payload = jwt.verify(token, process.env.JWT_SECRET);
+    // Ajout log debug pour vérifier le payload JWT
+    console.log('[auth/me] Payload JWT:', payload);
     // Récupère l'utilisateur en base pour avoir le rôle à jour
     const user = await User.findByPk(payload.user_id || payload.id);
-    if (!user) return res.status(401).json({ message: 'Utilisateur non trouvé' });
+    if (!user) {
+      console.log('[auth/me] Utilisateur non trouvé en base');
+      return res.status(401).json({ message: 'Utilisateur non trouvé' });
+    }
     res.json({ user: { id: user.id, username: user.username, email: user.email, role: user.role, code: user.code } });
   } catch (err) {
+    console.log('[auth/me] Erreur JWT:', err);
     res.status(401).json({ message: 'Token invalide' });
   }
 };
