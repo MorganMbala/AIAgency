@@ -21,6 +21,7 @@ import { GoogleOAuthProvider } from "@react-oauth/google";
 import { CartProvider } from "./contexts/CartContext.jsx";
 import DashboardIframe from "./pages/DashboardIframe.jsx";
 import OrderHistory from "./pages/OrderHistory.jsx";
+import ChatWidget from "./components/ChatWidget";
 
 const Home = () => (
   <>
@@ -74,6 +75,7 @@ const App = () => {
             <Route path="/dashboard" element={<DashboardIframe />} />
             <Route path="/order-history" element={<OrderHistory />} />
           </Routes>
+          <ChatWidget />
         </BrowserRouter>
       </CartProvider>
     </GoogleOAuthProvider>

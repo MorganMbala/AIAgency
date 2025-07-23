@@ -9,13 +9,10 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Connexion à MongoDB
-mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost:27017/tech-service', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
-.then(() => console.log('MongoDB connecté'))
-.catch((err) => console.error('Erreur MongoDB :', err));
+// Connexion à MongoDB (options dépréciées supprimées)
+mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost:27017/tech-service')
+  .then(() => console.log('MongoDB connecté'))
+  .catch((err) => console.error('Erreur MongoDB :', err));
 
 // Routes produits
 app.use('/api/products', productRoutes);
