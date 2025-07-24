@@ -42,7 +42,7 @@ const Footer = () => {
   };
 
   return (
-    <footer className="bg-gradient-to-br from-[#f4f9ff] via-[#d6e8fa] to-[#cce0f5] text-gray-800 pt-16 pb-10 transition-all duration-500">
+    <footer className="bg-white text-black pt-16 pb-10 border-t border-black" style={{ fontFamily: 'Poppins, Inter, Segoe UI, Arial, sans-serif' }}>
       <ToastContainer position="bottom-center" autoClose={3000} />
 
       <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-3 gap-10 text-center md:text-left">
@@ -93,11 +93,17 @@ const Footer = () => {
           >
             {t("footer.contactUs")}
           </a>
+          <a
+            href="/conversation"
+            className="inline-block mt-4 ml-3 px-6 py-3 bg-black text-white font-semibold rounded-lg hover:bg-gray-900 transition transform hover:scale-105 duration-300 shadow-md border border-black"
+          >
+            Book a Call
+          </a>
         </div>
       </div>
 
       {/* SOCIAL + POLITIQUE */}
-      <div className="border-t border-gray-300 mt-10 pt-6 text-sm text-center space-y-4">
+      <div className="border-t border-black mt-10 pt-6 text-sm text-center space-y-4">
         <div className="flex justify-center gap-6 text-2xl text-gray-600">
           <a
             href="https://www.linkedin.com/"

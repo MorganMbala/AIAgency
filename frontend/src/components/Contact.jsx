@@ -65,10 +65,10 @@ const Contact = () => {
     <div className='xl:mt-12 flex xl:flex-row flex-col-reverse gap-10 overflow-hidden'>
       <motion.div
         variants={slideIn("right", "tween", 0.2, 1)}
-        className='flex-[0.75] bg-black-100 p-8 rounded-2xl'
+        className='flex-[0.75] bg-white p-8 rounded-2xl border border-black'
       >
-        <p className={styles.sectionSubText}>{t("contact.subText")}</p>
-        <h3 className={styles.sectionHeadText}>{t("contact.title")}</h3>
+        <p className={styles.sectionSubText + ' text-black'} style={{ color: '#111' }}>{t("contact.subText") || "Contact us for a free consultation"}</p>
+        <h3 className={styles.sectionHeadText + ' text-black'} style={{ color: '#111' }}>{t("contact.title") || "Contact"}</h3>
 
         <form
           ref={formRef}
@@ -76,7 +76,7 @@ const Contact = () => {
           className='mt-12 flex flex-col gap-8'
         >
           <label className='flex flex-col'>
-            <span className='text-white font-medium mb-4'>
+            <span className='text-black font-medium mb-4'>
               {t("contact.labels.fullName")}
             </span>
             <input
@@ -85,12 +85,12 @@ const Contact = () => {
               value={form.name}
               onChange={handleChange}
               placeholder={t("contact.placeholders.fullName")}
-              className='bg-tertiary py-4 px-6 placeholder:text-secondary text-white rounded-lg outline-none border-none font-medium'
+              className='bg-white py-4 px-6 placeholder:text-gray-500 text-black rounded-lg outline-none border border-black font-medium'
             />
           </label>
 
           <label className='flex flex-col'>
-            <span className='text-white font-medium mb-4'>
+            <span className='text-black font-medium mb-4'>
               {t("contact.labels.workEmail")}
             </span>
             <input
@@ -99,12 +99,12 @@ const Contact = () => {
               value={form.email}
               onChange={handleChange}
               placeholder={t("contact.placeholders.workEmail")}
-              className='bg-tertiary py-4 px-6 placeholder:text-secondary text-white rounded-lg outline-none border-none font-medium'
+              className='bg-white py-4 px-6 placeholder:text-gray-500 text-black rounded-lg outline-none border border-black font-medium'
             />
           </label>
 
           <label className='flex flex-col'>
-            <span className='text-white font-medium mb-4'>
+            <span className='text-black font-medium mb-4'>
               {t("contact.labels.companyName")}
             </span>
             <input
@@ -113,19 +113,19 @@ const Contact = () => {
               value={form.compagny}
               onChange={handleChange}
               placeholder={t("contact.placeholders.companyName")}
-              className='bg-tertiary py-4 px-6 placeholder:text-secondary text-white rounded-lg outline-none border-none font-medium'
+              className='bg-white py-4 px-6 placeholder:text-gray-500 text-black rounded-lg outline-none border border-black font-medium'
             />
           </label>
 
           <label className='flex flex-col'>
-            <span className='text-white font-medium mb-4'>
+            <span className='text-black font-medium mb-4'>
               {t("contact.labels.companySize")}
             </span>
             <select
               name='companySize'
               value={form.companySize}
               onChange={handleChange}
-              className='bg-tertiary py-4 px-6 text-white rounded-lg outline-none border-none font-medium'
+              className='bg-white py-4 px-6 text-black rounded-lg outline-none border border-black font-medium'
             >
               <option value='1-50'>1-50</option>
               <option value='50-100'>50-100</option>
@@ -136,7 +136,7 @@ const Contact = () => {
           </label>
 
           <label className='flex flex-col'>
-            <span className='text-white font-medium mb-4'>
+            <span className='text-black font-medium mb-4'>
               {t("contact.labels.message")}
             </span>
             <textarea
@@ -145,13 +145,13 @@ const Contact = () => {
               value={form.message}
               onChange={handleChange}
               placeholder={t("contact.placeholders.message")}
-              className='bg-tertiary py-4 px-6 placeholder:text-secondary text-white rounded-lg outline-none border-none font-medium'
+              className='bg-white py-4 px-6 placeholder:text-gray-500 text-black rounded-lg outline-none border border-black font-medium'
             />
           </label>
 
           <button
             type='submit'
-            className='bg-tertiary py-3 px-8 rounded-xl outline-none w-fit text-white font-bold shadow-md shadow-primary'
+            className='bg-black py-3 px-8 rounded-xl outline-none w-fit text-white font-bold shadow-md border border-black hover:bg-gray-900 transition'
           >
             {loading ? t("contact.button.sending") : t("contact.button.send")}
           </button>

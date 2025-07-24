@@ -43,29 +43,15 @@ const ProjectCard = ({
 
 const Works = () => {
   const { t } = useTranslation();
-
   return (
-    <>
-      <motion.div variants={textVariant()}>
-        <p className={`${styles.sectionSubText}`}>{t("works.subText")}</p>
-        <h2 className={`${styles.sectionHeadText}`}>{t("works.title")}</h2>
-      </motion.div>
-
-      <div className='w-full flex'>
-        <motion.p
-          variants={fadeIn("", "", 0.1, 1)}
-          className='mt-3 text-secondary text-[17px] max-w-3xl leading-[30px]'
-        >
-          {t("works.paragraph")}
-        </motion.p>
-      </div>
-
-      <div className='mt-20 flex flex-wrap gap-7'>
+    <div style={{ background: "#fff", fontFamily: "Poppins, Inter, Segoe UI, Arial, sans-serif", color: "#111", borderRadius: 16, border: "1px solid #111", padding: 24 }}>
+      <h2 className={styles.sectionHeadText + " text-black"}>{t("works.title")}</h2>
+      <div className='flex flex-wrap gap-10 mt-10'>
         {projects.map((project, index) => (
-          <ProjectCard key={`project-${index}`} index={index} {...project} />
+          <ProjectCard key={project.name} index={index} {...project} />
         ))}
       </div>
-    </>
+    </div>
   );
 };
 

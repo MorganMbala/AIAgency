@@ -25,7 +25,7 @@ import ChatWidget from "./components/ChatWidget";
 
 const Home = () => (
   <>
-    <div className="bg-hero-pattern bg-cover bg-no-repeat bg-center">
+    <div style={{ background: '#fff', fontFamily: 'Poppins, Inter, Segoe UI, Arial, sans-serif', color: '#111' }}>
       <Navbar />
       <Hero />
     </div>
@@ -33,10 +33,10 @@ const Home = () => (
     <Experience />
     <Tech />
     <Works />
-    {/* <Feedbacks /> */}
+    <Feedbacks />
     <div className="relative z-0">
       <Contact />
-      <StarsCanvas />
+      {/* <StarsCanvas /> */}
     </div>
     <Footer />
   </>

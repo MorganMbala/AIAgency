@@ -96,16 +96,29 @@ const Explore = () => {
             <h2 className="text-2xl font-semibold mb-6 uppercase tracking-widest text-gray-700">{category}</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
               {grouped[category].map(product => (
-                <div key={product.id || product._id} className="bg-white rounded-xl shadow-md p-6 flex flex-col items-center">
-                  <img src={product.image} alt={product.name} className="w-32 h-32 object-cover mb-4 rounded" />
-                  <h2 className="text-xl font-semibold mb-2">{product.name}</h2>
-                  <p className="text-gray-600 mb-2">{product.description}</p>
-                  <div className="text-lg font-bold mb-4">{product.price} $</div>
+                <div
+                  key={product.id || product._id}
+                  className="bg-white border border-black rounded-xl shadow-none p-6 flex flex-col items-center"
+                  style={{ fontFamily: 'Poppins, Inter, Segoe UI, Arial, sans-serif', color: '#111' }}
+                >
+                  <img
+                    src={product.image}
+                    alt={product.name}
+                    className="w-32 h-32 object-cover mb-4 rounded border border-black"
+                    style={{ background: "#fff" }}
+                  />
+                  <h2 className="text-xl font-semibold mb-2" style={{ color: "#111" }}>{product.name}</h2>
+                  <p className="text-[15px] mb-2" style={{ color: "#444" }}>{product.description}</p>
+                  <div className="text-lg font-bold mb-4" style={{ color: "#111" }}>{product.price} $</div>
                   <button
-                    className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
+                    className="flex items-center justify-center gap-2 px-6 py-2 border border-black bg-white text-black rounded hover:bg-black hover:text-white transition-all duration-150 font-semibold uppercase tracking-wider"
                     onClick={() => handleAddToCart(product)}
+                    style={{ boxShadow: "none" }}
                   >
-                    Ajouter au panier
+                    <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                    </svg>
+                    Ajouter
                   </button>
                 </div>
               ))}
